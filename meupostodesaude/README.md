@@ -67,5 +67,6 @@ ng build
 
 firebase deploy
 # projeto criado como firebase hosting
-# url https://minhaequipesaude.web.app/
+# url 
+https://minhaequipesaude.web.app
 ```
