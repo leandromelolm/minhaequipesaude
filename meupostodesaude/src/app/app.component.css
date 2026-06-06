@@ -151,4 +151,21 @@
     padding: 0.875rem;
     font-size: 0.95rem;
   }
+
 }
+
+.itens__container {
+  display: inline-flex;
+  place-items: center;
+}
+
+.div__nome-unidade { 
+  place-content: center;
+  font-weight: 800;
+}
+
+.a__menu {
+  display: flex;
+}
+
+
