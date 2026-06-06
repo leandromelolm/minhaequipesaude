@@ -63,10 +63,19 @@ For more information on using the Angular CLI, including detailed command refere
 
 
 ```bash
-ng build
-
-firebase deploy
 # projeto criado como firebase hosting
+ng build
+firebase deploy
+
+#iniciar processo
+npm start
+
+# matar processo
+npx kill-port 4200
+
 # url 
 https://minhaequipesaude.web.app
+
+
+
 ```

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { MenuComponent } from './components/menu/menu.component';
+// import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-root',

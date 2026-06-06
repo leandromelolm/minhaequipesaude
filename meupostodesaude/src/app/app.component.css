@@ -160,8 +160,9 @@
 }
 
 .div__nome-unidade { 
-  place-content: center;
+  align-items: center;
   font-weight: 800;
+  display: flex;
 }
 
 .a__menu {
