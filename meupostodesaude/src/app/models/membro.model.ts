@@ -4,4 +4,6 @@ export interface Membro {
   especialidade: string;
   registro: string;
   descricao: string;
+  equipe?: string;
+  unidade?: string;
 }
