@@ -1,0 +1,32 @@
+<section class="membros-section">
+    <div class="section-title">
+      <h2>Conheça Nossas Equipes</h2>
+    </div>
+  @if (!exibirComponenteMembro) {
+    <div class="team-grid">
+      <div class="team-card" *ngFor="let equipe of equipes" (click)="selecionarEquipe(equipe.apelido)">
+        <div class="team-info" (click)="abrirComponente(true)">
+          <h3>{{ equipe.nome }}</h3>
+          <p class="description">{{ equipe.descricao }}</p>
+        </div>
+      </div>
+    </div>
+  }
+
+  @if (exibirComponenteMembro) {
+    <div class="">
+      <a class="team-grid" (click)="abrirComponente(false)">
+        <div class="team-card">
+          <div class="team-info">
+            <h3>Voltar</h3>
+          </div>
+        </div>
+      </a>
+      <app-membros [equipeApelido]="apelidoEquipeSelecionada()"></app-membros>
+      <button class="botao-flutuante" (click)="abrirComponente(false)">
+        <img src="/assets/images/undo_24dp_FFF.svg" alt="Voltar">
+      </button>
+    </div>
+  }
+  </section>
+  

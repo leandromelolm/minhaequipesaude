@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, computed, effect, input, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Membro } from '../../models/membro.model';
 import { MembrosService } from '../../services/membros.service';
@@ -11,11 +11,28 @@ import { MembrosService } from '../../services/membros.service';
   styleUrl: './membros.component.css'
 })
 export class MembrosComponent implements OnInit {
-  membros: Membro[] = [];
 
-  constructor(private membrosService: MembrosService) { }
+  equipeApelido = input<string>('');
+  tituloEquipe: String | null = "";
+  
+  private todosMembros = signal<Membro[]>([]);
+
+  membrosFiltrados = computed(() => {
+    const apelido = this.equipeApelido();
+    if (!apelido) {
+      return this.todosMembros();
+    }
+    return this.todosMembros().filter(membro => membro.equipe === apelido);
+  });
+
+  constructor(private membrosService: MembrosService) {
+    effect(() => {
+      this.tituloEquipe = this.equipeApelido();
+      console.log(this.equipeApelido())
+    });
+  }
 
   ngOnInit(): void {
-    this.membros = this.membrosService.getMembros();
+    this.todosMembros.set(this.membrosService.getMembros());
   }
 }
