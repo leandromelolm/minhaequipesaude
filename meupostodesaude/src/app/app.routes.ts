@@ -5,7 +5,7 @@ import { EquipesComponent } from './components/equipes/equipes.component';
 
 export const routes: Routes = [
   // { path: '', redirectTo: '/membros', pathMatch: 'full' },
-  { path: '', component: MembrosComponent },
+  { path: '', component: EquipesComponent },
   { path: 'equipes', component: EquipesComponent },
   { path: 'membros', component: MembrosComponent },
   { path: 'busca-ruas', component: BuscaRuasComponent }
