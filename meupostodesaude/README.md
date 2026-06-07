@@ -64,6 +64,7 @@ For more information on using the Angular CLI, including detailed command refere
 
 ```bash
 # projeto criado como firebase hosting
+# angular 19
 ng build
 firebase deploy
 
