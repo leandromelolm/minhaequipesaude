@@ -6,5 +6,6 @@ export interface Rua {
   cep: string;
   descricao: string;
   responsavel: string;
+  equipeVinculada?: string;
   detalhes?: string[];
 }

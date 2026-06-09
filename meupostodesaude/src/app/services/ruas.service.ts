@@ -14,6 +14,7 @@ export class RuasService {
       cep: '50850030',
       descricao: '',
       responsavel: 'fulano',
+      equipeVinculada: '4',
       detalhes: ['', '', '', '']
     },
     {
@@ -23,7 +24,8 @@ export class RuasService {
       cidade: 'Recife',
       cep: '50850030',
       descricao: '',
-      responsavel: 'fulano'
+      responsavel: 'fulano',
+      equipeVinculada: '2'
     },
     {
       id: 3,
@@ -32,7 +34,8 @@ export class RuasService {
       cidade: 'Recife',
       cep: '50850030',
       descricao: '',
-      responsavel: 'fulano'
+      responsavel: 'fulano',
+      equipeVinculada: '4'
     },
     {
       id: 4,
@@ -41,7 +44,8 @@ export class RuasService {
       cidade: 'Recife',
       cep: '50850030',
       descricao: '',
-      responsavel: 'fulano'
+      responsavel: 'fulano',
+      equipeVinculada: '4'
     },
     {
       id: 5,
@@ -50,7 +54,8 @@ export class RuasService {
       cidade: 'Recife',
       cep: '50850030',
       descricao: '',
-      responsavel: 'fulano'
+      responsavel: 'fulano',
+      equipeVinculada: '4'
     },
     {
       id: 6,
@@ -59,7 +64,8 @@ export class RuasService {
       cidade: 'Recife',
       cep: '50850030',
       descricao: '',
-      responsavel: 'fulano'
+      responsavel: 'fulano',
+      equipeVinculada: '4'
     },
     {
       id: 7,
@@ -68,7 +74,8 @@ export class RuasService {
       cidade: 'Recife',
       cep: '50850030',
       descricao: '',
-      responsavel: 'fulano'
+      responsavel: 'fulano',
+      equipeVinculada: '4'
     },
     {
       id: 8,
@@ -77,7 +84,8 @@ export class RuasService {
       cidade: 'Recife',
       cep: '50850030',
       descricao: '',
-      responsavel: 'fulano'
+      responsavel: 'fulano',
+      equipeVinculada: '4'
     },
     {
       id: 9,
@@ -86,7 +94,8 @@ export class RuasService {
       cidade: 'Recife',
       cep: '50850030',
       descricao: '',
-      responsavel: 'fulano'
+      responsavel: 'fulano',
+      equipeVinculada: '4'
     },
     {
       id: 10,
@@ -95,7 +104,8 @@ export class RuasService {
       cidade: 'Recife',
       cep: '50850030',
       descricao: '',
-      responsavel: 'fulano'
+      responsavel: 'fulano',
+      equipeVinculada: '4'
     },
     {
       id: 11,
@@ -104,7 +114,8 @@ export class RuasService {
       cidade: 'Recife',
       cep: '50850030',
       descricao: '',
-      responsavel: 'fulano'
+      responsavel: 'fulano',
+      equipeVinculada: '4'
     },
     {
       id: 12,
@@ -113,7 +124,8 @@ export class RuasService {
       cidade: 'Recife',
       cep: '50850030',
       descricao: '',
-      responsavel: 'fulano'
+      responsavel: 'fulano',
+      equipeVinculada: '4'
     },
     {
       id: 13,
@@ -122,7 +134,8 @@ export class RuasService {
       cidade: 'Recife',
       cep: '50850030',
       descricao: '',
-      responsavel: 'fulano'
+      responsavel: 'fulano',
+      equipeVinculada: '4'
     }
 
   ];
