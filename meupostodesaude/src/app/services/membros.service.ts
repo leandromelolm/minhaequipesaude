@@ -93,6 +93,14 @@ export class MembrosService {
       registro: '',
       descricao: 'Cobre as seguintes ruas:',
       equipe: '2'
+    },
+    {
+      id: 11,
+      nome: 'Fulano da silva',
+      especialidade: 'Agente Comunitário em Saúde',
+      registro: '',
+      descricao: 'Cobre as seguintes ruas:',
+      equipe: '2'
     }
     
   ];
