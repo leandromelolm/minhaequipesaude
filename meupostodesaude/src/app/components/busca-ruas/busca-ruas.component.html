@@ -21,12 +21,12 @@
     <div *ngIf="ruasFiltradas.length > 0" class="ruas-list">
       <div class="rua-item" *ngFor="let rua of ruasFiltradas" (click)="selecionarRua(rua)" [class.selected]="ruaSelecionada?.id === rua.id">
         <div class="rua-header">
-          <h3>{{ rua.nome }}</h3>
+          <h3>{{ rua.logradouro }}</h3>
           <span class="bairro-badge">{{ rua.bairro }}</span>
         </div>
         <p class="rua-location">{{ rua.cidade }} - {{ rua.cep }}</p>
-        <p class="rua-location">Agente de Saúde: {{ rua.responsavel }}</p>
-        <p class="rua-location">Equipe {{ rua.equipeVinculada }}</p>
+        <p class="rua-location">Agente de Saúde: {{ rua.acs }}</p>
+        <p class="rua-location">Equipe {{ rua.equipe_vinculada }}</p>
       </div>
     </div>
     
@@ -34,7 +34,7 @@
 
   <div *ngIf="ruaSelecionada" class="rua-detalhes">
     <div class="detalhes-header">
-      <h2>{{ ruaSelecionada.nome }}</h2>
+      <h2>{{ ruaSelecionada.logradouro }}</h2>
       <button class="close-btn" (click)="fecharDetalhes()">×</button>
     </div>
 
@@ -48,18 +48,18 @@
 
         <div class="detalhes-item">
           <h4>Descrição</h4>
-          <p>{{ ruaSelecionada.descricao }}</p>
+          <p>{{ ruaSelecionada.observacao }}</p>
         </div>
 
         <div class="detalhes-item">
           <h4>Agente de Saúde responsável</h4>
-          <p>{{ ruaSelecionada.responsavel }}</p>
+          <p>{{ ruaSelecionada.acs }}</p>
         </div>
 
         <div class="detalhes-item">
           <h4>Detalhes</h4>
           <ul class="pontos-lista">
-            <li *ngFor="let ponto of ruaSelecionada.detalhes">
+            <li *ngFor="let ponto of ruaSelecionada.observacao">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="icon-check">
                 <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
               </svg>

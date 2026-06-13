@@ -1,6 +1,6 @@
 import { Component, computed, effect, input, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Membro } from '../../models/membro.model';
+import { Membro } from '../../models/profissional.model';
 import { MembrosService } from '../../services/membros.service';
 
 @Component({

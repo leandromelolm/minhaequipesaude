@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Membro } from '../models/membro.model';
+import { Membro } from '../models/profissional.model';
 
 @Injectable({
   providedIn: 'root'

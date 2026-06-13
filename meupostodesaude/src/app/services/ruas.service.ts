@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Rua } from '../models/rua.model';
+import { Rua } from '../models/endereco.model';
 
 @Injectable({
   providedIn: 'root'
@@ -8,134 +8,134 @@ export class RuasService {
   private ruas: Rua[] = [
     {
       id: 1,
-      nome: 'Rua Carlos Pena Filho ',
+      logradouro: 'Rua Carlos Pena Filho ',
       bairro: 'Afogados',
       cidade: 'Recife',
       cep: '50850030',
-      descricao: '',
-      responsavel: 'fulano',
-      equipeVinculada: '4',
-      detalhes: ['', '', '', '']
+      complemento: '',
+      acs: 'fulano',
+      equipe_vinculada: '4',
+      observacao: ['', '', '', '']
     },
     {
       id: 2,
-      nome: 'Rua Lavinia ',
+      logradouro: 'Rua Lavinia ',
       bairro: 'Afogados',
       cidade: 'Recife',
       cep: '50850030',
-      descricao: '',
-      responsavel: 'fulano',
-      equipeVinculada: '2'
+      complemento: '',
+      acs: 'fulano',
+      equipe_vinculada: '2'
     },
     {
       id: 3,
-      nome: 'Rua Luis Pereira de Farias ',
+      logradouro: 'Rua Luis Pereira de Farias ',
       bairro: 'Afogados',
       cidade: 'Recife',
       cep: '50850030',
-      descricao: '',
-      responsavel: 'fulano',
-      equipeVinculada: '4'
+      complemento: '',
+      acs: 'fulano',
+      equipe_vinculada: '4'
     },
     {
       id: 4,
-      nome: 'Rua Madressilva',
+      logradouro: 'Rua Madressilva',
       bairro: 'Afogados',
       cidade: 'Recife',
       cep: '50850030',
-      descricao: '',
-      responsavel: 'fulano',
-      equipeVinculada: '4'
+      complemento: '',
+      acs: 'fulano',
+      equipe_vinculada: '4'
     },
     {
       id: 5,
-      nome: 'Rua Arnaldo Pimentel ',
+      logradouro: 'Rua Arnaldo Pimentel ',
       bairro: 'Afogados',
       cidade: 'Recife',
       cep: '50850030',
-      descricao: '',
-      responsavel: 'fulano',
-      equipeVinculada: '4'
+      complemento: '',
+      acs: 'fulano',
+      equipe_vinculada: '4'
     },
     {
       id: 6,
-      nome: 'Rua Manoel Lubambo',
+      logradouro: 'Rua Manoel Lubambo',
       bairro: 'Afogados',
       cidade: 'Recife',
       cep: '50850030',
-      descricao: '',
-      responsavel: 'fulano',
-      equipeVinculada: '4'
+      complemento: '',
+      acs: 'fulano',
+      equipe_vinculada: '4'
     },
     {
       id: 7,
-      nome: 'Rua Odilon Lima ',
+      logradouro: 'Rua Odilon Lima ',
       bairro: 'Afogados',
       cidade: 'Recife',
       cep: '50850030',
-      descricao: '',
-      responsavel: 'fulano',
-      equipeVinculada: '4'
+      complemento: '',
+      acs: 'fulano',
+      equipe_vinculada: '4'
     },
     {
       id: 8,
-      nome: 'Rua Bezerra de Palma',
+      logradouro: 'Rua Bezerra de Palma',
       bairro: 'Afogados',
       cidade: 'Recife',
       cep: '50850030',
-      descricao: '',
-      responsavel: 'fulano',
-      equipeVinculada: '4'
+      complemento: '',
+      acs: 'fulano',
+      equipe_vinculada: '4'
     },
     {
       id: 9,
-      nome: 'Rua Carvalho de Mendoça',
+      logradouro: 'Rua Carvalho de Mendoça',
       bairro: 'Afogados',
       cidade: 'Recife',
       cep: '50850030',
-      descricao: '',
-      responsavel: 'fulano',
-      equipeVinculada: '4'
+      complemento: '',
+      acs: 'fulano',
+      equipe_vinculada: '4'
     },
     {
       id: 10,
-      nome: 'Rua Francisco Porfirio',
+      logradouro: 'Rua Francisco Porfirio',
       bairro: 'Afogados',
       cidade: 'Recife',
       cep: '50850030',
-      descricao: '',
-      responsavel: 'fulano',
-      equipeVinculada: '4'
+      complemento: '',
+      acs: 'fulano',
+      equipe_vinculada: '4'
     },
     {
       id: 11,
-      nome: 'Rua Carlos Alberto de Menezes',
+      logradouro: 'Rua Carlos Alberto de Menezes',
       bairro: 'Afogados',
       cidade: 'Recife',
       cep: '50850030',
-      descricao: '',
-      responsavel: 'fulano',
-      equipeVinculada: '4'
+      complemento: '',
+      acs: 'fulano',
+      equipe_vinculada: '4'
     },
     {
       id: 12,
-      nome: 'Rua Santos Araujo',
+      logradouro: 'Rua Santos Araujo',
       bairro: 'Afogados',
       cidade: 'Recife',
       cep: '50850030',
-      descricao: '',
-      responsavel: 'fulano',
-      equipeVinculada: '4'
+      complemento: '',
+      acs: 'fulano',
+      equipe_vinculada: '4'
     },
     {
       id: 13,
-      nome: 'Rua Londrina',
+      logradouro: 'Rua Londrina',
       bairro: 'Afogados',
       cidade: 'Recife',
       cep: '50850030',
-      descricao: '',
-      responsavel: 'fulano',
-      equipeVinculada: '4'
+      complemento: '',
+      acs: 'fulano',
+      equipe_vinculada: '4'
     }
 
   ];
@@ -156,7 +156,7 @@ export class RuasService {
     }
     const termoLower = termo.toLowerCase();
     return this.ruas.filter(r =>
-      r.nome.toLowerCase().includes(termoLower) ||
+      r.logradouro.toLowerCase().includes(termoLower) ||
       r.bairro.toLowerCase().includes(termoLower) ||
       r.cidade.toLowerCase().includes(termoLower)
     );

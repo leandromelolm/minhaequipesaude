@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Rua } from '../../models/rua.model';
+import { Rua } from '../../models/endereco.model';
 import { RuasService } from '../../services/ruas.service';
 
 @Component({
