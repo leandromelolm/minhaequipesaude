@@ -1,4 +1,4 @@
-export interface Rua {
+export interface Endereco {
   id: number;
   logradouro: string;
   bairro: string;

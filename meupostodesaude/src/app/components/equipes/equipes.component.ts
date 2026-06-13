@@ -2,12 +2,12 @@ import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Unidade } from '../../models/unidade.model';
 import { UnidadeService } from '../../services/unidade.service';
-import { MembrosComponent } from '../membros/membros.component';
+import { ProfissionaisComponent } from '../profissionais/profissionais.component';
 
 @Component({
   selector: 'app-equipes',
   standalone: true,
-  imports: [CommonModule, MembrosComponent],
+  imports: [CommonModule, ProfissionaisComponent],
   templateUrl: './equipes.component.html',
   styleUrl: './equipes.component.scss'
 })

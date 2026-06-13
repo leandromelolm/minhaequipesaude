@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Membro } from '../models/profissional.model';
+import { Profissional } from '../models/profissional.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class MembrosService {
-  private membros: Membro[] = [
+export class ProfissionaisService {
+  private profissionais: Profissional[] = [
     {
       id: 1,
       nome: 'Maria Silva',
@@ -107,11 +107,11 @@ export class MembrosService {
 
   constructor() { }
 
-  getMembros(): Membro[] {
-    return this.membros;
+  getProfissionais(): Profissional[] {
+    return this.profissionais;
   }
 
-  getMembroById(id: number): Membro | undefined {
-    return this.membros.find(m => m.id === id);
+  getMembroById(id: number): Profissional | undefined {
+    return this.profissionais.find(p => p.id === id);
   }
 }

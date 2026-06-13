@@ -1,21 +1,21 @@
 import { Component, computed, effect, input, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Membro } from '../../models/profissional.model';
-import { MembrosService } from '../../services/membros.service';
+import { Profissional } from '../../models/profissional.model';
+import { ProfissionaisService } from '../../services/profissionais.service';
 
 @Component({
-  selector: 'app-membros',
+  selector: 'app-profissionais',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './membros.component.html',
-  styleUrl: './membros.component.css'
+  templateUrl: './profissionais.component.html',
+  styleUrl: './profissionais.component.css'
 })
-export class MembrosComponent implements OnInit {
+export class ProfissionaisComponent implements OnInit {
 
   equipeApelido = input<string>('');
   tituloEquipe: String | null = "";
   
-  private todosMembros = signal<Membro[]>([]);
+  private todosMembros = signal<Profissional[]>([]);
 
   membrosFiltrados = computed(() => {
     const apelido = this.equipeApelido();
@@ -25,7 +25,7 @@ export class MembrosComponent implements OnInit {
     return this.todosMembros().filter(membro => membro.equipe === apelido);
   });
 
-  constructor(private membrosService: MembrosService) {
+  constructor(private profissionalService: ProfissionaisService) {
     effect(() => {
       this.tituloEquipe = this.equipeApelido();
       console.log(this.equipeApelido())
@@ -33,6 +33,6 @@ export class MembrosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.todosMembros.set(this.membrosService.getMembros());
+    this.todosMembros.set(this.profissionalService.getProfissionais());
   }
 }

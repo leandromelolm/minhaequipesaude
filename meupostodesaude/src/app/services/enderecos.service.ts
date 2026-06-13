@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Rua } from '../models/endereco.model';
+import { Endereco } from '../models/endereco.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class RuasService {
-  private ruas: Rua[] = [
+export class EnderecosService {
+  private enderecos: Endereco[] = [
     {
       id: 1,
       logradouro: 'Rua Carlos Pena Filho ',
@@ -142,23 +142,23 @@ export class RuasService {
 
   constructor() { }
 
-  getRuas(): Rua[] {
-    return this.ruas;
+  getEnderecos(): Endereco[] {
+    return this.enderecos;
   }
 
-  getRuaById(id: number): Rua | undefined {
-    return this.ruas.find(r => r.id === id);
+  getRuaById(id: number): Endereco | undefined {
+    return this.enderecos.find(e => e.id === id);
   }
 
-  buscarRuas(termo: string): Rua[] {
+  buscarEndereco(termo: string): Endereco[] {
     if (!termo.trim()) {
-      return this.ruas;
+      return this.enderecos;
     }
     const termoLower = termo.toLowerCase();
-    return this.ruas.filter(r =>
-      r.logradouro.toLowerCase().includes(termoLower) ||
-      r.bairro.toLowerCase().includes(termoLower) ||
-      r.cidade.toLowerCase().includes(termoLower)
+    return this.enderecos.filter(e =>
+      e.logradouro.toLowerCase().includes(termoLower) ||
+      e.bairro.toLowerCase().includes(termoLower) ||
+      e.cidade.toLowerCase().includes(termoLower)
     );
   }
 }

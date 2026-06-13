@@ -1,4 +1,4 @@
-export interface Membro {
+export interface Profissional {
   id: number;
   nome: string;
   especialidade: string;
