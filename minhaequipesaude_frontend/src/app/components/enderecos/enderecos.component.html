@@ -1,15 +1,10 @@
-  <section class="busca-ruas-section">
+<section class="busca-ruas-section">
   <div class="search-container">
-    <h2>Buscar Ruas</h2>
+    <h2>Buscar Endereço</h2>
     <div class="search-box">
-      <input
-        type="text"
-        placeholder="Digite o nome da rua, travessa, beco..."
-        [(ngModel)]="termoBusca"
-        (input)="buscar()"
-        class="search-input"
-      />
-     
+      <input type="text" placeholder="Digite o nome da rua, travessa, beco..." [(ngModel)]="termoBusca"
+        (input)="buscar()" class="search-input" />
+
     </div>
   </div>
 
@@ -19,7 +14,8 @@
     </div>
 
     <div *ngIf="ruasFiltradas.length > 0" class="ruas-list">
-      <div class="rua-item" *ngFor="let rua of ruasFiltradas" (click)="selecionarRua(rua)" [class.selected]="ruaSelecionada?.id === rua.id">
+      <div class="rua-item" *ngFor="let rua of ruasFiltradas" (click)="selecionarRua(rua)"
+        [class.selected]="ruaSelecionada?.id === rua.id">
         <div class="rua-header">
           <h3>{{ rua.logradouro }}</h3>
           <span class="bairro-badge">{{ rua.bairro }}</span>
@@ -29,7 +25,7 @@
         <p class="rua-location">Equipe {{ rua.equipe_vinculada }}</p>
       </div>
     </div>
-    
+
   </div>
 
   <div *ngIf="ruaSelecionada" class="rua-detalhes">
@@ -61,7 +57,7 @@
           <ul class="pontos-lista">
             <li *ngFor="let ponto of ruaSelecionada.observacao">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="icon-check">
-                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
               </svg>
               {{ ponto }}
             </li>
