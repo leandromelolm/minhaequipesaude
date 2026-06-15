@@ -102,7 +102,7 @@ export class ProfissionaisService {
       descricao: 'Cobre as seguintes ruas:',
       equipe: '2'
     }
-    
+
   ];
 
   constructor() { }

@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
-import { ProfissionaisComponent } from './components/profissionais/profissionais.component';
-import { EnderecosComponent } from './components/enderecos/enderecos.component';
-import { EquipesComponent } from './components/equipes/equipes.component';
+import { ProfissionaisComponent } from './features/profissionais/profissionais.component';
+import { EnderecosComponent } from './features/enderecos/enderecos.component';
+import { EquipesComponent } from './features/equipes/equipes.component';
 
 export const routes: Routes = [
   // { path: '', redirectTo: '/membros', pathMatch: 'full' },

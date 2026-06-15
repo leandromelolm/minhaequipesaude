@@ -1,7 +1,7 @@
 import { Component, computed, effect, input, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Profissional } from '../../models/profissional.model';
-import { ProfissionaisService } from '../../services/profissionais.service';
+import { Profissional } from './models/profissional.model';
+import { ProfissionaisService } from './services/profissionais.service';
 
 @Component({
   selector: 'app-profissionais',
@@ -14,7 +14,7 @@ export class ProfissionaisComponent implements OnInit {
 
   equipeApelido = input<string>('');
   tituloEquipe: String | null = "";
-  
+
   private todosMembros = signal<Profissional[]>([]);
 
   membrosFiltrados = computed(() => {

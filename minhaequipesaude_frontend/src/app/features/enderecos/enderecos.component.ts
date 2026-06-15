@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Endereco } from '../../models/endereco.model';
-import { EnderecosService } from '../../services/enderecos.service';
+import { Endereco } from './models/endereco.model';
+import { EnderecosService } from './services/enderecos.service';
+
 
 @Component({
   selector: 'app-enderecos',
