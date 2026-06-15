@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Endereco } from './models/endereco.model';
 import { EnderecosService } from './services/enderecos.service';
+import { Observable, of, Subscription } from 'rxjs';
 
 
 @Component({
@@ -14,26 +15,38 @@ import { EnderecosService } from './services/enderecos.service';
 })
 export class EnderecosComponent implements OnInit {
   termoBusca: string = '';
-  ruasFiltradas: Endereco[] = [];
-  ruaSelecionada: Endereco | null = null;
-  private todosOsEnderecos: Endereco[] = [];
+  enderecoSelecionada: Endereco | null = null;
 
-  constructor(private enderecoService: EnderecosService) { }
+  private enderecoService = inject(EnderecosService);
+  enderecos$!: Observable<Endereco[]>;
 
-  ngOnInit(): void {
-    this.todosOsEnderecos = this.enderecoService.getEnderecos();
-    this.ruasFiltradas = this.todosOsEnderecos;
-  }
+  listaDeEnderecos: Endereco[] = [];
+  private sub!: Subscription;
+
+  constructor() { }
+
+  ngOnInit(): void { }
 
   buscar(): void {
-    this.ruasFiltradas = this.enderecoService.buscarEndereco(this.termoBusca);
+    const resultadoFiltrado = this.enderecoService.buscarEndereco(this.termoBusca);
+    this.enderecos$ = of(resultadoFiltrado);
   }
 
   selecionarRua(endereco: Endereco): void {
-    this.ruaSelecionada = endereco;
+    this.enderecoSelecionada = endereco;
   }
 
   fecharDetalhes(): void {
-    this.ruaSelecionada = null;
+    this.enderecoSelecionada = null;
+  }
+
+  getDataTest(): void {
+    this.sub = this.enderecoService.getEnderecos().subscribe({
+      next: (dados) => {
+        this.listaDeEnderecos = dados;
+        console.log('Dados recebidos:', this.listaDeEnderecos);
+      },
+      error: (err) => console.error('Erro ao buscar endereços', err)
+    });
   }
 }

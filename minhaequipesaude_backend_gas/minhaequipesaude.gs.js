@@ -1,12 +1,12 @@
 function _env() {
   return {
-    ENV_SPREADSHEET_ID : '',
-    SH_ENDERECO : '',
+    ENV_SPREADSHEET_ID: '',
+    SH_ENDERECO: '',
     SH_PROFISSIONAL: '',
     SH_UNIDADE: ''
   }
 }
-  
+
 function doGet(e) {
   let op = e.parameter.action;
   let sheetNumber = e.parameter.sheetnumber;
@@ -15,35 +15,35 @@ function doGet(e) {
   if (op == "read")
     return getBySheetName(ss, sheetNumber);
 }
-  
+
 function getBySheetName(ss, sheetNumber) {
-  if(sheetNumber == 1) {
+  if (sheetNumber == 1) {
     return getDataAll(ss.getSheetByName(env().SH_ENDERECO))
   }
 
-  if(sheetNumber == 2) {
+  if (sheetNumber == 2) {
     return getDataAll(ss.getSheetByName(env().SH_PROFISSIONAL))
   }
 
-  if(sheetNumber == 3) {
+  if (sheetNumber == 3) {
     return getDataAll(ss.getSheetByName(env().SH_UNIDADE))
   }
 
 }
-  
+
 function getDataAll(sheetName) {
   let output = ContentService.createTextOutput(), data = {};
   data.content = readData(sheetName);
   output.setContent(JSON.stringify(data));
-  return output;
+  return output.setMimeType(ContentService.MimeType.JSON);
 }
 
 function readData(sheet) {
-  try {    
+  try {
     properties = getHeaderRow(sheet);
     properties = properties.map(
-      function (p) { 
-        return p.replace(/\s+/g, '_'); 
+      function (p) {
+        return p.replace(/\s+/g, '_');
       });
 
     let rows = getDataRows(sheet),
@@ -62,7 +62,7 @@ function readData(sheet) {
     return error;
   }
 }
-  
+
 function getDataRows(sheet) {
   try {
     return sheet.getRange(2, 1, sheet.getLastRow() - 1, sheet.getLastColumn()).getValues();
@@ -70,7 +70,7 @@ function getDataRows(sheet) {
     return error;
   }
 }
-  
+
 function getHeaderRow(sheet) {
   try {
     return sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
@@ -78,7 +78,7 @@ function getHeaderRow(sheet) {
     return error;
   }
 }
-  
+
 /** 
  * 
    
