@@ -25,7 +25,10 @@ export class EnderecosComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    // this.getDataTest()
+    this.enderecos$ = this.enderecoService.getEnderecos();
+  }
 
   buscar(): void {
     const resultadoFiltrado = this.enderecoService.buscarEndereco(this.termoBusca);
