@@ -47,7 +47,6 @@ export class EnderecosComponent implements OnInit {
     this.sub = this.enderecoService.getEnderecos().subscribe({
       next: (dados) => {
         this.listaDeEnderecos = dados;
-        console.log('Dados recebidos:', this.listaDeEnderecos);
       },
       error: (err) => console.error('Erro ao buscar endereços', err)
     });

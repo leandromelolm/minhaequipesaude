@@ -24,7 +24,6 @@ export class EnderecosService {
       map(resposta => resposta.content),
       tap(dados => {
         this.enderecos = dados;
-        console.log('Dados salvos no service:', this.enderecos);
       })
     )
   }

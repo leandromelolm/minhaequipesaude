@@ -12,6 +12,10 @@ Este projeto foi gerado usando [Angular CLI](https://github.com/angular/angular-
 
 ```bash
 # projeto criado como firebase hosting
+firebase login --reauth
+firebase projects:list
+firebase use [NOME_DO_PROJETO]
+
 
 # build e deploy
 ng build
