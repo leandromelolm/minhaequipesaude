@@ -15,7 +15,7 @@ import { Observable, of, Subscription } from 'rxjs';
 })
 export class EnderecosComponent implements OnInit {
   termoBusca: string = '';
-  enderecoSelecionada: Endereco | null = null;
+  enderecoSelecionado: Endereco | null = null;
 
   private enderecoService = inject(EnderecosService);
   enderecos$!: Observable<Endereco[]>;
@@ -33,11 +33,11 @@ export class EnderecosComponent implements OnInit {
   }
 
   selecionarRua(endereco: Endereco): void {
-    this.enderecoSelecionada = endereco;
+    this.enderecoSelecionado = endereco;
   }
 
   fecharDetalhes(): void {
-    this.enderecoSelecionada = null;
+    this.enderecoSelecionado = null;
   }
 
   getDataTest(): void {
