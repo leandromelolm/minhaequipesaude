@@ -52,7 +52,15 @@ function readData(sheet) {
       let row = rows[r],
         record = {};
       for (let p in properties) {
-        record[properties[p]] = row[p];
+        let columnName = properties[p];
+        let cellValue = row[p];
+        if (columnName === "observacao" && typeof cellValue === "string" && cellValue !== "") {
+          record[columnName] = cellValue.split(';').map(function (item) {
+            return item.trim();
+          });
+        } else {
+          record[columnName] = cellValue;
+        }
       }
       data.push(record);
     }
