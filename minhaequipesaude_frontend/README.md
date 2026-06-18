@@ -19,6 +19,7 @@ firebase use [NOME_DO_PROJETO]
 
 # build e deploy
 ng build
+ng build --configuration production
 firebase deploy
 
 #iniciar processo

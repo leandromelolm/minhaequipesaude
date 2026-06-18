@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { Endereco } from '../models/endereco.model';
 import { map, Observable, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../../environments/environment';
 
 interface RespostaApi {
   content: Endereco[];
@@ -12,10 +13,11 @@ interface RespostaApi {
 })
 export class EnderecosService {
 
+  private scriptId = environment.scriptId;
   private enderecos: Endereco[] = [];
 
   private http = inject(HttpClient);
-  private readonly apiUrl = 'https://script.google.com/a/macros/a.recife.ifpe.edu.br/s/AKfycbxMv3JwHDFhOZEcrZBCTDwI3N8o-ilcBR45-BXRItJW7J5Rmrw2BhuoODpI72b8yTc/exec';
+  private readonly apiUrl = `https://script.google.com/a/macros/a.recife.ifpe.edu.br/s/${this.scriptId}/exec`;
 
   constructor() { }
 
