@@ -1,8 +1,8 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Unidade } from '../../models/unidade.model';
-import { UnidadeService } from '../../services/unidade.service';
+import { Equipe } from './models/equipe.model';
 import { ProfissionaisComponent } from '../profissionais/profissionais.component';
+import { EquipeService } from './services/equipes.service';
 
 @Component({
   selector: 'app-equipes',
@@ -12,21 +12,21 @@ import { ProfissionaisComponent } from '../profissionais/profissionais.component
   styleUrl: './equipes.component.scss'
 })
 export class EquipesComponent implements OnInit {
-  equipes: Unidade[] = [];
+  equipes: Equipe[] = [];
   equipeSelecionada: String | null = "";
   exibirComponenteMembro: boolean = false;
   apelidoEquipeSelecionada = signal('');
 
 
-  constructor(private unidadeService: UnidadeService) { }
+  constructor(private equipeService: EquipeService) { }
 
   ngOnInit(): void {
-    this.equipes = this.unidadeService.getUnidade();
+    this.equipes = this.equipeService.getUnidade();
   }
 
   selecionarEquipe(equipeApelido: string): void {
-      this.equipeSelecionada = equipeApelido;
-      this.apelidoEquipeSelecionada.set(equipeApelido);
+    this.equipeSelecionada = equipeApelido;
+    this.apelidoEquipeSelecionada.set(equipeApelido);
   }
 
   abrirComponente(status: boolean): void {

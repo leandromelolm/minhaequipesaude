@@ -28,7 +28,6 @@ export class ProfissionaisComponent implements OnInit {
   constructor(private profissionalService: ProfissionaisService) {
     effect(() => {
       this.tituloEquipe = this.equipeApelido();
-      console.log(this.equipeApelido())
     });
   }
 
