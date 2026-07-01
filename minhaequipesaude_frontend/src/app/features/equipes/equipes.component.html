@@ -1,32 +1,37 @@
 <section class="equipe-section">
-    <div class="section-title">
-      <h2>Conheça Nossas Equipes</h2>
-    </div>
   @if (!exibirComponenteMembro) {
-    <div class="team-grid">
-      <div class="team-card" *ngFor="let equipe of equipes" (click)="selecionarEquipe(equipe.apelido)">
-        <div class="team-info" (click)="abrirComponente(true)">
-          <h3>{{ equipe.nome }}</h3>
-          <p class="description">{{ equipe.descricao }}</p>
-        </div>
+  <div class="section-title">
+    <h2>Conheça Nossas Equipes</h2>
+  </div>
+  <div class="team-grid">
+    <div class="team-card" *ngFor="let equipe of equipes" (click)="selecionarEquipe(equipe.apelido)">
+      <div class="team-info" (click)="abrirComponente(true)">
+        <h3>{{ equipe.nome }}</h3>
+        <p class="description">{{ equipe.descricao }}</p>
       </div>
     </div>
+  </div>
   }
 
   @if (exibirComponenteMembro) {
-    <div class="">
-      <a class="team-grid" (click)="abrirComponente(false)">
-        <div class="team-card">
-          <div class="team-info">
-            <h3>Voltar</h3>
-          </div>
+  <div class="">
+
+    <a class="team-grid" (click)="abrirComponente(false)">
+      <div class="team-card-back">
+        <div class="team-info-back">
+          <img src="/assets/images/undo_24dp_FFF.svg" alt="imagem do membro">
+          <h3 class="h3-back">Voltar</h3>
         </div>
-      </a>
-      <app-profissionais [equipeApelido]="apelidoEquipeSelecionada()"></app-profissionais>
-      <button class="botao-flutuante" (click)="abrirComponente(false)">
-        <img src="/assets/images/undo_24dp_FFF.svg" alt="Voltar">
-      </button>
+      </div>
+    </a>
+
+    <div class="section-title">
+      <h2>Conheça Nossa Equipe</h2>
     </div>
+    <app-profissionais [equipeApelido]="apelidoEquipeSelecionada()"></app-profissionais>
+    <button class="botao-flutuante" (click)="abrirComponente(false)">
+      <img src="/assets/images/undo_24dp_FFF.svg" alt="Voltar">
+    </button>
+  </div>
   }
-  </section>
-  
+</section>
