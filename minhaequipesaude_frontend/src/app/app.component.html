@@ -8,24 +8,31 @@
     </div>
   </header>
 
-  
   <!-- Navigation -->
   <nav class="navbar">
     <div class="nav-container">
       <div class="itens__container">
-        <div class="div__nome-unidade">
-          <img src="/assets/images/logo_sf.png" alt="USF" width="50" height="50">
-          <div>USF Vila São Miguel / Marron Glacê</div>
+        <div class="nav-title-ico">
+          <a class="a__menu" [routerLink]="['/profissionais']" routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }">
+            <div class="div__nome-unidade">
+              <img src="/assets/images/logo_sf.png" alt="USF" width="50" height="50">
+              <div>USF Vila São Miguel / Marron Glacê</div>
+            </div>
+          </a>
         </div>
         <ul class="nav-menu">
           <li>
-            <a class="a__menu" [routerLink]="['/equipes']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            <!-- <a class="a__menu" [routerLink]="['/equipes']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"> -->
+            <a class="a__menu" [routerLink]="['/profissionais']" routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }">
               <img src="/assets/images/equipe.svg" alt="equipe">
               <div>Equipe</div>
             </a>
           </li>
           <li>
-            <a class="a__menu" [routerLink]="['/busca-ruas']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            <a class="a__menu" [routerLink]="['/busca-ruas']" routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }">
               <img src="/assets/images/localizacao.svg" alt="localizacao">
               <div>Ruas</div>
             </a>
@@ -35,7 +42,7 @@
     </div>
   </nav>
 
-  
+
   <!-- Main Content -->
   <main class="main-content">
     <router-outlet></router-outlet>

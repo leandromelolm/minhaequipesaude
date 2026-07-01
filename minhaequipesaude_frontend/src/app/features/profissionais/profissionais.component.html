@@ -1,27 +1,28 @@
 <section class="membros-section">
   <div class="section-title">
+    <h2>Conheça Nossa Equipe</h2>
     <h3>Equipe {{tituloEquipe}}</h3>
   </div>
 
   <div class="team-grid">
     @for (membro of membrosFiltrados(); track membro.id) {
-      <div class="team-card">
-        <div class="team-photo">
-          <div class="photo-placeholder">
-            <img src="/assets/images/person_90dp_FFF.svg" alt="imagem do membro">
-          </div>
-        </div>
-        <div class="team-info">
-          <h3>{{ membro.nome }}</h3>
-          <p class="role">{{ membro.especialidade }}</p>
-          <p class="specialty">{{ membro.registro }}</p>
-          <p class="description">{{ membro.descricao }}</p>
+    <div class="team-card">
+      <div class="team-photo">
+        <div class="photo-placeholder">
+          <img src="/assets/images/person_90dp_FFF.svg" alt="imagem do membro">
         </div>
       </div>
+      <div class="team-info">
+        <h3>{{ membro.nome }}</h3>
+        <p class="role">{{ membro.especialidade }}</p>
+        <p class="specialty">{{ membro.registro }}</p>
+        <p class="description">{{ membro.descricao }}</p>
+      </div>
+    </div>
     } @empty {
-      <div class="sem-membros">
-        <p>Nenhum membro encontrado para esta equipe.</p>
-      </div>
+    <div class="sem-membros">
+      <p>Nenhum membro encontrado para esta equipe.</p>
+    </div>
     }
   </div>
 </section>

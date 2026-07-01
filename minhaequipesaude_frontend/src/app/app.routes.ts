@@ -5,8 +5,8 @@ import { EquipesComponent } from './features/equipes/equipes.component';
 
 export const routes: Routes = [
   // { path: '', redirectTo: '/membros', pathMatch: 'full' },
-  { path: '', component: EquipesComponent },
+  { path: '', component: ProfissionaisComponent },
   { path: 'equipes', component: EquipesComponent },
-  { path: 'membros', component: ProfissionaisComponent },
+  { path: 'profissionais', component: ProfissionaisComponent },
   { path: 'busca-ruas', component: EnderecosComponent }
 ];
