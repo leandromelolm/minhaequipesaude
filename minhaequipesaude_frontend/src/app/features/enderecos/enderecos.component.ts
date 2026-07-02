@@ -1,5 +1,5 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Endereco } from './models/endereco.model';
 import { EnderecosService } from './services/enderecos.service';
@@ -14,6 +14,8 @@ import { Observable, of, Subscription } from 'rxjs';
   styleUrl: './enderecos.component.css'
 })
 export class EnderecosComponent implements OnInit {
+
+  private platformId = inject(PLATFORM_ID);
   termoBusca: string = '';
   enderecoSelecionado: Endereco | null = null;
 
@@ -27,7 +29,9 @@ export class EnderecosComponent implements OnInit {
 
   ngOnInit(): void {
     // this.getDataTest()
-    this.enderecos$ = this.enderecoService.getEnderecos();
+    if (isPlatformBrowser(this.platformId)) {
+      this.enderecos$ = this.enderecoService.getEnderecos();
+    }
   }
 
   buscar(): void {

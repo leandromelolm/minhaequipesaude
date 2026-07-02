@@ -1,5 +1,5 @@
-import { Component, computed, inject, input, signal, OnInit, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, computed, inject, input, signal, OnInit, OnDestroy, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Profissional } from './models/profissional.model';
 import { ProfissionaisService } from './services/profissionais.service';
 import { Subscription } from 'rxjs';
@@ -13,6 +13,7 @@ import { Subscription } from 'rxjs';
 })
 export class ProfissionaisComponent implements OnInit, OnDestroy {
 
+  private platformId = inject(PLATFORM_ID);
   private profissionalService = inject(ProfissionaisService);
 
   // preencher o input automaticamente com o valor da URL :equipeApelido
@@ -24,6 +25,12 @@ export class ProfissionaisComponent implements OnInit, OnDestroy {
   private sub: Subscription | null = null;
 
   ngOnInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      this.carregarDados();
+    }
+  }
+
+  private carregarDados() {
     this.carregando.set(true);
     this.sub = this.profissionalService.getProfissionais().subscribe({
       next: (dados) => {

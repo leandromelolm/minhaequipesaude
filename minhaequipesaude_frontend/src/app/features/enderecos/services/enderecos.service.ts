@@ -1,8 +1,9 @@
-import { inject, Injectable, signal } from '@angular/core';
+import { inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
 import { Endereco } from '../models/endereco.model';
 import { map, Observable, of, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
+import { isPlatformBrowser } from '@angular/common';
 
 interface RespostaApi {
   content: Endereco[];
@@ -12,6 +13,8 @@ interface RespostaApi {
   providedIn: 'root'
 })
 export class EnderecosService {
+
+  private platformId = inject(PLATFORM_ID);
   private http = inject(HttpClient);
   private scriptId = environment.scriptId;
   private readonly apiUrl = `https://script.google.com/a/macros/a.recife.ifpe.edu.br/s/${this.scriptId}/exec`;
@@ -23,23 +26,28 @@ export class EnderecosService {
   private enderecosSignal = signal<Endereco[]>([]);
 
   constructor() {
-    const dadosSalvos = sessionStorage.getItem(this.CACHE_KEY);
-    if (dadosSalvos) {
-      this.enderecosSignal.set(JSON.parse(dadosSalvos));
+    if (isPlatformBrowser(this.platformId)) {
+      const dadosSalvos = sessionStorage.getItem(this.CACHE_KEY);
+      if (dadosSalvos) {
+        this.enderecosSignal.set(JSON.parse(dadosSalvos));
+      }
     }
   }
 
   getEnderecos(): Observable<Endereco[]> {
-    const dadosSalvos = sessionStorage.getItem(this.CACHE_KEY);
-    const ultimaRequisicao = sessionStorage.getItem(this.TIME_KEY);
-    const agora = Date.now();
 
-    if (dadosSalvos && ultimaRequisicao) {
-      const tempoDecorrido = agora - parseInt(ultimaRequisicao, 10);
-      if (tempoDecorrido < this.CACHE_DURATION_MS) {
-        const dados = JSON.parse(dadosSalvos);
-        this.enderecosSignal.set(dados);
-        return of(dados);
+    if (isPlatformBrowser(this.platformId)) {
+      const dadosSalvos = sessionStorage.getItem(this.CACHE_KEY);
+      const ultimaRequisicao = sessionStorage.getItem(this.TIME_KEY);
+      const agora = Date.now();
+
+      if (dadosSalvos && ultimaRequisicao) {
+        const tempoDecorrido = agora - parseInt(ultimaRequisicao, 10);
+        if (tempoDecorrido < this.CACHE_DURATION_MS) {
+          const dados = JSON.parse(dadosSalvos);
+          this.enderecosSignal.set(dados);
+          return of(dados);
+        }
       }
     }
 
@@ -47,7 +55,7 @@ export class EnderecosService {
       map(resposta => resposta.content),
       tap(dados => {
         sessionStorage.setItem(this.CACHE_KEY, JSON.stringify(dados));
-        sessionStorage.setItem(this.TIME_KEY, agora.toString());
+        sessionStorage.setItem(this.TIME_KEY, Date.now().toString());
         this.enderecosSignal.set(dados);
       })
     );
