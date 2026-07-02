@@ -19,7 +19,7 @@ export class ProfissionaisComponent implements OnInit {
 
   private todosMembros = signal<Profissional[]>([]);
   carregando = signal<boolean>(true);
-  private sub: Subscription | null = null; // Para evitar vazamento de memória
+  private sub: Subscription | null = null;
 
   membrosFiltrados = computed(() => {
     const apelido = this.equipeApelido();
