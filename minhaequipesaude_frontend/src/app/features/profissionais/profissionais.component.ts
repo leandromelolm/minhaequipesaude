@@ -1,9 +1,8 @@
-import { Component, computed, effect, inject, input, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, input, signal, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Profissional } from './models/profissional.model';
 import { ProfissionaisService } from './services/profissionais.service';
-import { Observable, Subscription } from 'rxjs';
-import { log } from 'console';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-profissionais',
@@ -12,47 +11,51 @@ import { log } from 'console';
   templateUrl: './profissionais.component.html',
   styleUrl: './profissionais.component.css'
 })
-export class ProfissionaisComponent implements OnInit {
+export class ProfissionaisComponent implements OnInit, OnDestroy {
 
+  private profissionalService = inject(ProfissionaisService);
+
+  // preencher o input automaticamente com o valor da URL :equipeApelido
   equipeApelido = input<string>('');
-  tituloEquipe: string | null = "";
 
-  private todosMembros = signal<Profissional[]>([]);
+  todosMembros = signal<Profissional[]>([]);
   carregando = signal<boolean>(true);
+
   private sub: Subscription | null = null;
-
-  membrosFiltrados = computed(() => {
-    const apelido = this.equipeApelido();
-    if (!apelido) {
-      return this.todosMembros();
-    }
-    return this.todosMembros().filter(membro => String(membro.equipe) === apelido);
-  });
-
-  constructor(private profissionalService: ProfissionaisService) {
-    effect(() => {
-      this.tituloEquipe = this.equipeApelido();
-    });
-  }
 
   ngOnInit(): void {
     this.carregando.set(true);
     this.sub = this.profissionalService.getProfissionais().subscribe({
       next: (dados) => {
-        this.todosMembros.set(dados);
+        this.todosMembros.set(dados || []);
         this.carregando.set(false);
       },
       error: (err) => {
-        console.error('Erro ao buscar profissionais da API:', err);
+        console.error('Erro ao buscar profissionais:', err);
         this.carregando.set(false);
       }
     });
   }
+
+  membrosFiltrados = computed(() => {
+    const apelidoAlvo = String(this.equipeApelido() || '').trim();
+    const membros = this.todosMembros();
+
+    if (!apelidoAlvo) {
+      return membros;
+    }
+
+    return membros.filter(membro => String(membro.equipe).trim() === apelidoAlvo);
+  });
+
+  tituloEquipe = computed(() => {
+    const apelido = this.equipeApelido();
+    return apelido ? `${apelido}` : 'Geral';
+  });
 
   ngOnDestroy(): void {
     if (this.sub) {
       this.sub.unsubscribe();
     }
   }
-
 }

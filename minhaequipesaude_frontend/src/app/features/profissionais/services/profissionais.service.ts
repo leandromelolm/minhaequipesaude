@@ -1,9 +1,9 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { Profissional } from '../models/profissional.model';
 import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable, of, tap } from 'rxjs';
-import { log } from 'console';
+import { isPlatformBrowser } from '@angular/common';
 
 interface RespostaApi {
   content: Profissional[];
@@ -13,6 +13,8 @@ interface RespostaApi {
   providedIn: 'root'
 })
 export class ProfissionaisService {
+
+  private platformId = inject(PLATFORM_ID);
 
   private scriptId = environment.scriptId;
   private readonly apiUrl = `https://script.google.com/a/macros/a.recife.ifpe.edu.br/s/${this.scriptId}/exec?action=read&sheetnumber=2`;
@@ -24,15 +26,18 @@ export class ProfissionaisService {
   constructor(private http: HttpClient) { }
 
   getProfissionais(): Observable<Profissional[]> {
-    const dadosSalvos = sessionStorage.getItem(this.CACHE_KEY);
-    const ultimaRequisicao = sessionStorage.getItem(this.TIME_KEY);
-    const agora = Date.now();
 
-    if (dadosSalvos && ultimaRequisicao) {
-      const tempoDecorrido = agora - parseInt(ultimaRequisicao, 10);
+    if (isPlatformBrowser(this.platformId)) {
+      const dadosSalvos = sessionStorage.getItem(this.CACHE_KEY);
+      const ultimaRequisicao = sessionStorage.getItem(this.TIME_KEY);
+      const agora = Date.now();
 
-      if (tempoDecorrido < this.CACHE_DURATION_MS) {
-        return of(JSON.parse(dadosSalvos));
+      if (dadosSalvos && ultimaRequisicao) {
+        const tempoDecorrido = agora - parseInt(ultimaRequisicao, 10);
+
+        if (tempoDecorrido < this.CACHE_DURATION_MS) {
+          return of(JSON.parse(dadosSalvos));
+        }
       }
     }
 
@@ -40,7 +45,7 @@ export class ProfissionaisService {
       map(response => response.content),
       tap(profissionais => {
         sessionStorage.setItem(this.CACHE_KEY, JSON.stringify(profissionais));
-        sessionStorage.setItem(this.TIME_KEY, agora.toString());
+        sessionStorage.setItem(this.TIME_KEY, Date.now().toString());
       })
     );
   }
