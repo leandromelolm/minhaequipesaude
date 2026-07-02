@@ -138,3 +138,11 @@
     height: 60px;
   }
 }
+
+.loading-container {
+  justify-items: center;
+}
+
+.sem-membros {
+  justify-items: center;
+}

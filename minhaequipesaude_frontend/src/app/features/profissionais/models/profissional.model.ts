@@ -4,6 +4,6 @@ export interface Profissional {
   especialidade: string;
   registro: string;
   descricao: string;
-  equipe?: string;
+  equipe?: string | number;
   unidade?: string;
 }

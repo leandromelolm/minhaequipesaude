@@ -4,6 +4,13 @@
     <h3>Equipe {{tituloEquipe}}</h3>
   </div>
 
+  @if (carregando()) {
+  <div class="loading-container">
+    <div class="spinner"></div>
+    <p>Carregando profissionais... Por favor, aguarde.</p>
+  </div>
+  }
+  @else {
   <div class="team-grid">
     @for (membro of membrosFiltrados(); track membro.id) {
     <div class="team-card">
@@ -25,4 +32,5 @@
     </div>
     }
   </div>
+  }
 </section>

@@ -1,117 +1,27 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Profissional } from '../models/profissional.model';
+import { environment } from '../../../../environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { map, Observable, tap } from 'rxjs';
+import { log } from 'console';
+
+interface RespostaApi {
+  content: Profissional[];
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProfissionaisService {
-  private profissionais: Profissional[] = [
-    {
-      id: 1,
-      nome: 'Maria Silva',
-      especialidade: 'Medica em Saúde da Família',
-      registro: '',
-      descricao: '',
-      equipe: '1'
-    },
-    {
-      id: 2,
-      nome: 'Joana Santos',
-      especialidade: 'Enfermeira em Saúde da Família',
-      registro: '',
-      descricao: '',
-      equipe: '1'
-    },
-    {
-      id: 3,
-      nome: 'Ana Costa',
-      especialidade: 'Dentista em Saúde da Família',
-      registro: '',
-      descricao: '',
-      equipe: '1'
-    },
-    {
-      id: 4,
-      nome: 'Carlos Oliveira',
-      especialidade: 'Auxiliar em Saúde Bucal',
-      registro: '',
-      descricao: '',
-      equipe: '1'
-    },
-    {
-      id: 5,
-      nome: 'Paula Mendes',
-      especialidade: 'Técnica em enfermagem',
-      registro: '',
-      descricao: '',
-      equipe: '1'
-    },
-    {
-      id: 6,
-      nome: 'Carlos Lima',
-      especialidade: 'Agente Comunitário em Saúde',
-      registro: '',
-      descricao: 'Cobre as seguintes ruas: rua Carlos Pena Filho, Rua Lavinia',
-      equipe: '1'
-    },
-    {
-      id: 7,
-      nome: 'Carlos Lima',
-      especialidade: 'Agente Comunitário em Saúde',
-      registro: '',
-      descricao: 'Cobre as seguintes ruas:',
-      equipe: '1'
-    },
-    {
-      id: 8,
-      nome: 'Carlos Lima',
-      especialidade: 'Agente Comunitário em Saúde',
-      registro: '',
-      descricao: 'Cobre as seguintes ruas:',
-      equipe: '1'
-    },
-    {
-      id: 9,
-      nome: 'Carlos Lima',
-      especialidade: 'Agente Comunitário em Saúde',
-      registro: '',
-      descricao: 'Cobre as seguintes ruas:',
-      equipe: '1'
-    },
-    {
-      id: 10,
-      nome: 'Carlos Lima',
-      especialidade: 'Agente Comunitário em Saúde',
-      registro: '',
-      descricao: 'Cobre as seguintes ruas:',
-      equipe: '1'
-    },
-    {
-      id: 11,
-      nome: 'Fulano da silva',
-      especialidade: 'Agente Comunitário em Saúde',
-      registro: '',
-      descricao: 'Cobre as seguintes ruas:',
-      equipe: '2'
-    },
-    {
-      id: 11,
-      nome: 'Fulano da silva',
-      especialidade: 'Agente Comunitário em Saúde',
-      registro: '',
-      descricao: 'Cobre as seguintes ruas:',
-      equipe: '2'
-    }
 
-  ];
+  private scriptId = environment.scriptId;
+  private readonly apiUrl = `https://script.google.com/a/macros/a.recife.ifpe.edu.br/s/${this.scriptId}/exec?action=read&sheetnumber=2`;
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  getProfissionais(): Profissional[] {
-    return this.profissionais;
-  }
-
-  getMembroById(id: number): Profissional | undefined {
-    return this.profissionais.find(p => p.id === id);
+  getProfissionais(): Observable<Profissional[]> {
+    return this.http.get<RespostaApi>(this.apiUrl).pipe(
+      map(response => response.content)
+    );
   }
 }
