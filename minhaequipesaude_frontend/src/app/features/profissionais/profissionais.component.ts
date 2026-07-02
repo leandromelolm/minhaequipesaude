@@ -3,6 +3,8 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Profissional } from './models/profissional.model';
 import { ProfissionaisService } from './services/profissionais.service';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-profissionais',
@@ -13,6 +15,7 @@ import { Subscription } from 'rxjs';
 })
 export class ProfissionaisComponent implements OnInit, OnDestroy {
 
+  private router = inject(Router);
   private platformId = inject(PLATFORM_ID);
   private profissionalService = inject(ProfissionaisService);
 
@@ -25,6 +28,9 @@ export class ProfissionaisComponent implements OnInit, OnDestroy {
   private sub: Subscription | null = null;
 
   ngOnInit(): void {
+    if (this.router.url === '/' || this.router.url === '') {
+      this.router.navigate(['/profissionais/4']);
+    }
     if (isPlatformBrowser(this.platformId)) {
       this.carregarDados();
     }
