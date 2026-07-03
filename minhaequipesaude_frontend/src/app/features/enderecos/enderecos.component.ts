@@ -52,6 +52,8 @@ export class EnderecosComponent implements OnInit {
 
   selecionarRua(endereco: Endereco): void {
     this.enderecoSelecionado = endereco;
+    this.termoBusca = `${endereco.logradouro} `;
+    // this.buscar();
   }
 
   fecharDetalhes(): void {
