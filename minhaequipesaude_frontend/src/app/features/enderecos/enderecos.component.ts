@@ -3,7 +3,7 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Endereco } from './models/endereco.model';
 import { EnderecosService } from './services/enderecos.service';
-import { Observable, of, Subscription } from 'rxjs';
+import { finalize, Observable, of, Subscription } from 'rxjs';
 
 
 @Component({
@@ -22,6 +22,9 @@ export class EnderecosComponent implements OnInit {
   private enderecoService = inject(EnderecosService);
   enderecos$!: Observable<Endereco[]>;
 
+  carregandoApi: boolean = false;
+  buscaApiSemResultado: boolean = false;
+
   listaDeEnderecos: Endereco[] = [];
   private sub!: Subscription;
 
@@ -33,11 +36,16 @@ export class EnderecosComponent implements OnInit {
 
   private carregarDadosIniciais(): void {
     if (isPlatformBrowser(this.platformId)) {
+      this.buscaApiSemResultado = false;
       this.enderecos$ = this.enderecoService.getEnderecos();
     }
   }
 
   buscar(): void {
+    if (!this.termoBusca || !this.termoBusca.trim()) {
+      this.carregarDadosIniciais();
+      return;
+    }
     const resultadoFiltrado = this.enderecoService.buscarEndereco(this.termoBusca);
     this.enderecos$ = of(resultadoFiltrado);
   }
@@ -53,19 +61,32 @@ export class EnderecosComponent implements OnInit {
   buscarEnderecoComNumero(logradouro: string): void {
     if (!logradouro || !logradouro.trim()) return;
 
+    this.carregandoApi = true;
+    this.buscaApiSemResultado = false;
+    this.enderecoSelecionado = null;
+
     this.enderecoService.buscarEnderecoPorLogradouroENumero(logradouro)
+      .pipe(
+
+        finalize(() => {
+          this.carregandoApi = false;
+        })
+      )
       .subscribe({
         next: (endereco) => {
           if (endereco) {
-            console.log("Endereço encontrado:", endereco);
+            // console.log("Endereço encontrado na API:", endereco);
             this.enderecos$ = of([endereco]);
+            this.buscaApiSemResultado = false;
           } else {
-            console.log("Nenhum endereço correspondente na planilha.");
+            // console.log("API retornou null (não encontrado).");
+            this.buscaApiSemResultado = true;
             this.enderecos$ = of([]);
           }
         },
         error: (err) => {
-          console.error("Erro ao realizar busca:", err);
+          console.error("Erro na requisição da API:", err);
+          this.buscaApiSemResultado = true;
           this.enderecos$ = of([]);
         }
       });
@@ -74,7 +95,14 @@ export class EnderecosComponent implements OnInit {
   limparBusca(): void {
     this.termoBusca = '';
     this.enderecoSelecionado = null;
-    this.carregarDadosIniciais();
+    this.buscaApiSemResultado = false;
+    this.recargarListaCompleta();
+  }
+
+  private recargarListaCompleta(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      this.enderecos$ = this.enderecoService.getEnderecos();
+    }
   }
 
   getDataTest(): void {

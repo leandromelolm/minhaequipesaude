@@ -367,3 +367,37 @@
   width: 20px;
   height: 20px;
 }
+
+.results-loading-wrapper {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+}
+
+.api-error {
+  background-color: rgba(229, 62, 62, 0.1);
+  border: 1px solid rgba(229, 62, 62, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.api-error p {
+  color: #fff;
+  margin: 0;
+}
+
+.api-error .sub-text {
+  font-size: 0.95rem;
+  opacity: 0.8;
+  color: #fff;
+}
+
+.icon-warning {
+  width: 48px;
+  height: 48px;
+  color: #f6ad55;
+}

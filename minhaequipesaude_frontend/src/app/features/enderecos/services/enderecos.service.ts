@@ -60,10 +60,11 @@ export class EnderecosService {
 
     return this.http.get<RespostaApi>(`${this.apiUrl}?action=read&sheetnumber=1`).pipe(
       map(resposta => resposta.content),
-      tap(dados => {
-        sessionStorage.setItem(this.CACHE_KEY, JSON.stringify(dados));
+      map(dadosBrutos => this.removerLogradourosDuplicados(dadosBrutos)),
+      tap(dadosSemDuplicatas => {
+        sessionStorage.setItem(this.CACHE_KEY, JSON.stringify(dadosSemDuplicatas));
         sessionStorage.setItem(this.TIME_KEY, Date.now().toString());
-        this.enderecosSignal.set(dados);
+        this.enderecosSignal.set(dadosSemDuplicatas);
       })
     );
   }
@@ -90,11 +91,8 @@ export class EnderecosService {
       return of(null);
     }
 
-    // 1. Tratamento inicial: remove a vírgula caso o usuário coloque "Rua X, 150"
     let textoLimpo = inputUsuario.replace(/,/g, '').trim();
 
-    // 2. Expressão Regular para capturar o número isolado no final da string
-    // (\d+\s*[a-zA-Z]?|\bS\/N\b)$ foca em pegar números no fim (Ex: "150", "150A" ou "S/N")
     const regexNumeroNoFim = /(\d+\s*[a-zA-Z]?|\bS\/N\b)$/i;
     const match = textoLimpo.match(regexNumeroNoFim);
 
@@ -103,26 +101,37 @@ export class EnderecosService {
 
     if (match) {
       numero = match[0].trim();
-      // O logradouro vira tudo que está antes do número capturado
       logradouro = textoLimpo.substring(0, match.index).trim();
     }
 
-    // Se por acaso não achar número nenhum digitado, envia o texto todo como logradouro e número vazio
     if (!numero) {
       logradouro = textoLimpo;
     }
 
-    // 3. Monta a URL sanitizando os parâmetros para Query String (encodeURIComponent)
     const urlBusca = `${this.apiUrl}?action=search&logradouro=${encodeURIComponent(logradouro)}&numero=${encodeURIComponent(numero)}`;
 
-    // 4. Faz a requisição HTTP retornando o objeto retornado pelo Apps Script
     return this.http.get<RespostaBuscaApi>(urlBusca).pipe(
       map(resposta => {
         if (resposta.success && resposta.data) {
-          return resposta.data; // Retorna o objeto Endereco encontrado
+          return resposta.data;
         }
-        return null; // Caso não encontre ou dê erro interno na API
+        return null;
       })
     );
+  }
+  private removerLogradourosDuplicados(enderecos: Endereco[]): Endereco[] {
+    if (!enderecos || enderecos.length === 0) {
+      return [];
+    }
+
+    const logradourosUnicosMap = new Map<string, Endereco>();
+
+    enderecos.forEach(endereco => {
+      const logradouroNormalizado = endereco.logradouro.trim().toLowerCase();
+      if (!logradourosUnicosMap.has(logradouroNormalizado)) {
+        logradourosUnicosMap.set(logradouroNormalizado, endereco);
+      }
+    });
+    return Array.from(logradourosUnicosMap.values());
   }
 }

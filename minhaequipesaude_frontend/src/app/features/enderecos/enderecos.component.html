@@ -23,31 +23,45 @@
 
   <div class="results-container">
 
-    <div *ngIf="enderecos$ | async as listaEnderecos; else carregando" class="ruas-list">
+    <div *ngIf="carregandoApi; else contentTemplate" class="results-loading-wrapper">
+      <ng-container *ngTemplateOutlet="carregando"></ng-container>
+    </div>
 
-      <div *ngIf="listaEnderecos.length === 0" class="no-results">
-        <p>Nenhuma rua encontrada. Tente outro termo de busca.</p>
+    <ng-template #contentTemplate>
+
+      <div *ngIf="buscaApiSemResultado" class="no-results api-error">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="icon-warning">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
+        </svg>
+        <p>Nenhum endereço exato correspondente foi encontrado para o termo informado.</p>
+        <p class="sub-text">Verifique o nome do endereço e os números digitados.</p>
       </div>
 
-      <div class="rua-item" *ngFor="let endereco of listaEnderecos" (click)="selecionarRua(endereco)"
-        [class.selected]="enderecoSelecionado?.id === endereco.id">
+      <div *ngIf="enderecos$ | async as listaEnderecos; else carregando" class="ruas-list">
 
-        <div class="rua-header">
-          <h3>{{ endereco.logradouro }}</h3>
-          <span class="bairro-badge">{{ endereco.micro }}</span>
+        <div *ngIf="listaEnderecos.length === 0 && !buscaApiSemResultado" class="no-results">
+          <p>Nenhuma rua encontrada. Tente outro termo de busca.</p>
         </div>
 
-        <p class="rua-location">{{ endereco.bairro }} - {{ endereco.cep }}</p>
-        <p class="rua-location">Agente de Saúde: {{ endereco.acs }}</p>
-        <p class="rua-location">Equipe {{ endereco.equipe_vinculada }}</p>
-      </div>
+        <div class="rua-item" *ngFor="let endereco of listaEnderecos" (click)="selecionarRua(endereco)"
+          [class.selected]="enderecoSelecionado?.id === endereco.id">
 
-    </div>
+          <div class="rua-header">
+            <h3>{{ endereco.logradouro }}</h3>
+            <span class="bairro-badge">{{ endereco.micro }}</span>
+          </div>
+
+          <p class="rua-location">{{ endereco.bairro }} - {{ endereco.cep }}</p>
+          <p class="rua-location">Agente de Saúde: {{ endereco.acs }}</p>
+          <p class="rua-location">Equipe {{ endereco.equipe_vinculada }}</p>
+        </div>
+      </div>
+    </ng-template>
 
     <ng-template #carregando>
       <div class="loading-container">
         <div class="spinner"></div>
-        <p>Carregando endereços... Por favor, aguarde.</p>
+        <p>Carregando endereço exato... Por favor, aguarde.</p>
       </div>
     </ng-template>
 
@@ -57,38 +71,6 @@
     <div class="detalhes-header">
       <h2>{{ enderecoSelecionado.logradouro }}</h2>
       <button class="close-btn" (click)="fecharDetalhes()">×</button>
-    </div>
-
-    <div class="detalhes-content">
-      <div class="detalhes-grid">
-        <div class="detalhes-item">
-          <h4>Localização</h4>
-          <p>{{ enderecoSelecionado.bairro }}, {{ enderecoSelecionado.cidade }}</p>
-          <p class="cep">CEP: {{ enderecoSelecionado.cep }}</p>
-        </div>
-
-        <div class="detalhes-item">
-          <h4>Descrição</h4>
-          <p>{{ enderecoSelecionado.observacao }}</p>
-        </div>
-
-        <div class="detalhes-item">
-          <h4>Agente de Saúde responsável</h4>
-          <p>{{ enderecoSelecionado.acs }}</p>
-        </div>
-
-        <div class="detalhes-item" *ngIf="enderecoSelecionado.observacao && enderecoSelecionado.observacao.length">
-          <h4>Detalhes</h4>
-          <ul class="pontos-lista">
-            <li *ngFor="let ponto of [enderecoSelecionado.observacao]">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="icon-check">
-                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-              </svg>
-              {{ ponto }}
-            </li>
-          </ul>
-        </div>
-      </div>
     </div>
   </div>
 </section>
