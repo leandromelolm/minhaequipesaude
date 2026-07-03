@@ -28,7 +28,10 @@ export class EnderecosComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    // this.getDataTest()
+    this.carregarDadosIniciais();
+  }
+
+  private carregarDadosIniciais(): void {
     if (isPlatformBrowser(this.platformId)) {
       this.enderecos$ = this.enderecoService.getEnderecos();
     }
@@ -45,6 +48,33 @@ export class EnderecosComponent implements OnInit {
 
   fecharDetalhes(): void {
     this.enderecoSelecionado = null;
+  }
+
+  buscarEnderecoComNumero(logradouro: string): void {
+    if (!logradouro || !logradouro.trim()) return;
+
+    this.enderecoService.buscarEnderecoPorLogradouroENumero(logradouro)
+      .subscribe({
+        next: (endereco) => {
+          if (endereco) {
+            console.log("Endereço encontrado:", endereco);
+            this.enderecos$ = of([endereco]);
+          } else {
+            console.log("Nenhum endereço correspondente na planilha.");
+            this.enderecos$ = of([]);
+          }
+        },
+        error: (err) => {
+          console.error("Erro ao realizar busca:", err);
+          this.enderecos$ = of([]);
+        }
+      });
+  }
+
+  limparBusca(): void {
+    this.termoBusca = '';
+    this.enderecoSelecionado = null;
+    this.carregarDadosIniciais();
   }
 
   getDataTest(): void {

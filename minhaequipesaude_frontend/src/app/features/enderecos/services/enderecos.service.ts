@@ -5,6 +5,13 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import { isPlatformBrowser } from '@angular/common';
 
+interface RespostaBuscaApi {
+  success: boolean;
+  data: Endereco | null;
+  message?: string;
+  error?: string;
+}
+
 interface RespostaApi {
   content: Endereco[];
 }
@@ -75,6 +82,47 @@ export class EnderecosService {
       e.logradouro.toLowerCase().includes(termoLower) ||
       e.bairro.toLowerCase().includes(termoLower) ||
       e.cidade.toLowerCase().includes(termoLower)
+    );
+  }
+
+  buscarEnderecoPorLogradouroENumero(inputUsuario: string): Observable<Endereco | null> {
+    if (!inputUsuario || !inputUsuario.trim()) {
+      return of(null);
+    }
+
+    // 1. Tratamento inicial: remove a vírgula caso o usuário coloque "Rua X, 150"
+    let textoLimpo = inputUsuario.replace(/,/g, '').trim();
+
+    // 2. Expressão Regular para capturar o número isolado no final da string
+    // (\d+\s*[a-zA-Z]?|\bS\/N\b)$ foca em pegar números no fim (Ex: "150", "150A" ou "S/N")
+    const regexNumeroNoFim = /(\d+\s*[a-zA-Z]?|\bS\/N\b)$/i;
+    const match = textoLimpo.match(regexNumeroNoFim);
+
+    let logradouro = textoLimpo;
+    let numero = '';
+
+    if (match) {
+      numero = match[0].trim();
+      // O logradouro vira tudo que está antes do número capturado
+      logradouro = textoLimpo.substring(0, match.index).trim();
+    }
+
+    // Se por acaso não achar número nenhum digitado, envia o texto todo como logradouro e número vazio
+    if (!numero) {
+      logradouro = textoLimpo;
+    }
+
+    // 3. Monta a URL sanitizando os parâmetros para Query String (encodeURIComponent)
+    const urlBusca = `${this.apiUrl}?action=search&logradouro=${encodeURIComponent(logradouro)}&numero=${encodeURIComponent(numero)}`;
+
+    // 4. Faz a requisição HTTP retornando o objeto retornado pelo Apps Script
+    return this.http.get<RespostaBuscaApi>(urlBusca).pipe(
+      map(resposta => {
+        if (resposta.success && resposta.data) {
+          return resposta.data; // Retorna o objeto Endereco encontrado
+        }
+        return null; // Caso não encontre ou dê erro interno na API
+      })
     );
   }
 }

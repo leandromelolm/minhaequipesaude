@@ -1,11 +1,9 @@
-/* Busca Ruas Section */
 .busca-ruas-section {
   max-width: 900px;
   margin: 0 auto;
   padding: 4rem 2rem;
 }
 
-/* Search Container */
 .search-container {
   margin-bottom: 3rem;
   text-align: center;
@@ -22,22 +20,69 @@
   position: relative;
   max-width: 600px;
   margin: 0 auto;
+  width: 100%;
+}
+
+.search-wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
 }
 
 .search-input {
-  width: 75%;
-  padding: 1rem 3rem 1rem 1.5rem;
+  width: 100%;
+  padding: 1rem 5.5rem 1rem 1.5rem;
   font-size: 1rem;
   border: none;
   border-radius: 8px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
+  box-sizing: border-box;
 }
 
 .search-input:focus {
   outline: none;
   box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
 }
+
+.search-actions {
+  position: absolute;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  z-index: 2;
+}
+
+.action-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border-radius: 50%;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  color: #718096;
+  width: 32px;
+  height: 32px;
+}
+
+.clear-btn {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.clear-btn:hover {
+  color: #e53e3e;
+}
+
+.submit-btn:hover {
+  color: #667eea;
+}
+
 
 .search-icon {
   position: absolute;
@@ -316,4 +361,9 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.icon-arrow {
+  width: 20px;
+  height: 20px;
 }

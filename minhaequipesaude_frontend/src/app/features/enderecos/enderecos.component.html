@@ -2,8 +2,22 @@
   <div class="search-container">
     <h2>Buscar Endereço</h2>
     <div class="search-box">
-      <input type="text" placeholder="Digite o nome da rua, travessa, beco..." [(ngModel)]="termoBusca"
-        (input)="buscar()" class="search-input" />
+      <div class="search-wrapper">
+        <input type="text" placeholder="Digite o nome da rua, travessa, beco..." [(ngModel)]="termoBusca"
+          (input)="buscar()" class="search-input" (keyup.enter)="buscarEnderecoComNumero(termoBusca)" />
+
+        <div class="search-actions" *ngIf="termoBusca && termoBusca.trim().length > 0">
+          <button class="action-btn clear-btn" (click)="limparBusca()" title="Limpar pesquisa">
+            ×
+          </button>
+          <button class="action-btn submit-btn" (click)="buscarEnderecoComNumero(termoBusca)"
+            title="Buscar endereço exato">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="icon-arrow">
+              <path d="M5 13h11.86l-5.43 5.43 1.42 1.42L21.14 12l-8.29-8.29-1.42 1.42L16.86 11H5v2z" />
+            </svg>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -20,10 +34,10 @@
 
         <div class="rua-header">
           <h3>{{ endereco.logradouro }}</h3>
-          <span class="bairro-badge">{{ endereco.bairro }}</span>
+          <span class="bairro-badge">{{ endereco.micro }}</span>
         </div>
 
-        <p class="rua-location">{{ endereco.cidade }} - {{ endereco.cep }}</p>
+        <p class="rua-location">{{ endereco.bairro }} - {{ endereco.cep }}</p>
         <p class="rua-location">Agente de Saúde: {{ endereco.acs }}</p>
         <p class="rua-location">Equipe {{ endereco.equipe_vinculada }}</p>
       </div>
