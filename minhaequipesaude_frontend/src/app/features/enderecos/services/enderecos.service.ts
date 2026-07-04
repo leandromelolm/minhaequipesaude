@@ -119,17 +119,18 @@ export class EnderecosService {
       })
     );
   }
+
   private removerLogradourosDuplicados(enderecos: Endereco[]): Endereco[] {
     if (!enderecos || enderecos.length === 0) {
       return [];
     }
-
     const logradourosUnicosMap = new Map<string, Endereco>();
-
     enderecos.forEach(endereco => {
       const logradouroNormalizado = endereco.logradouro.trim().toLowerCase();
-      if (!logradourosUnicosMap.has(logradouroNormalizado)) {
-        logradourosUnicosMap.set(logradouroNormalizado, endereco);
+      const microNormalizada = endereco.micro ? endereco.micro.trim().toLowerCase() : '';
+      const chaveUnica = `${logradouroNormalizado}|${microNormalizada}`;
+      if (!logradourosUnicosMap.has(chaveUnica)) {
+        logradourosUnicosMap.set(chaveUnica, endereco);
       }
     });
     return Array.from(logradourosUnicosMap.values());
