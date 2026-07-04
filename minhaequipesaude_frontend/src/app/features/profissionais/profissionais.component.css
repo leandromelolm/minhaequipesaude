@@ -22,7 +22,6 @@
   opacity: 0.9;
 }
 
-/* Team Grid */
 .team-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -30,7 +29,6 @@
   margin-top: 2rem;
 }
 
-/* Team Card */
 .team-card {
   background: white;
   border-radius: 12px;
@@ -44,11 +42,10 @@
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
 }
 
-/* Team Photo */
 .team-photo {
   width: 100%;
   height: 250px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #667eea 0%, #032de7 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -71,7 +68,6 @@
   color: white;
 }
 
-/* Team Info */
 .team-info {
   padding: 1.5rem;
 }
