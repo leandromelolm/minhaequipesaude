@@ -201,3 +201,7 @@
 .a__menu {
   display: flex;
 }
+
+.icone_menu {
+  padding: 0 4px 0 0;
+}

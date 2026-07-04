@@ -51,7 +51,7 @@
             <span class="bairro-badge">{{ endereco.micro }}</span>
           </div>
 
-          <p class="rua-location">{{ endereco.bairro }} - {{ endereco.cep }}</p>
+          <p class="rua-location">{{ endereco.bairro }} - CEP:{{ endereco.cep }}</p>
           <p class="rua-location">Agente de Saúde: {{ endereco.acs }}</p>
           <p class="rua-location">Equipe {{ endereco.equipe_vinculada }}</p>
         </div>
@@ -61,7 +61,7 @@
     <ng-template #carregando>
       <div class="loading-container">
         <div class="spinner"></div>
-        <p>Carregando endereço exato... Por favor, aguarde.</p>
+        <p>Carregando endereço... Por favor, aguarde.</p>
       </div>
     </ng-template>
 
