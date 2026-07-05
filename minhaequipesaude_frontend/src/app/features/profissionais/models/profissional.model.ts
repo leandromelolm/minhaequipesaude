@@ -7,4 +7,5 @@ export interface Profissional {
   descricao: string;
   equipe?: string | number;
   unidade?: string;
+  url_foto?: string;
 }
