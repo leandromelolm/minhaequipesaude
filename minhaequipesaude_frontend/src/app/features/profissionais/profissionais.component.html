@@ -17,9 +17,10 @@
       <div class="team-photo">
         <div class="photo-placeholder">
           @if (membro.url_foto) {
-            <img src="{{ membro.url_foto }}" class="photo-placeholder" alt="foto">
+            <img src="{{ membro.url_foto }}" class="photo-placeholder" alt=""
+              (error)="$any($event.target).src = '/assets/images/person_90dp_FFF.svg'">
           } @else {
-            <img src="/assets/images/person_90dp_FFF.svg" alt="imagem do membro">
+            <img  class="photo-placeholder" src="/assets/images/person_90dp_FFF.svg" alt="foto perfil">
           }
         </div>
       </div>
