@@ -15,12 +15,12 @@
     @for (membro of membrosFiltrados(); track membro.id) {
     <div class="team-card">
       <div class="team-photo">
-        <div class="photo-placeholder">
+        <div>
           @if (membro.url_foto) {
-            <img src="{{ membro.url_foto }}" class="photo-placeholder" alt=""
-              (error)="$any($event.target).src = '/assets/images/person_90dp_FFF.svg'">
+          <img src="{{ membro.url_foto }}" class="photo-placeholder" alt=""
+            (error)="$any($event.target).src = '/assets/images/person_90dp_FFF.svg'">
           } @else {
-            <img  class="photo-placeholder" src="/assets/images/person_90dp_FFF.svg" alt="foto perfil">
+          <img class="photo-placeholder" src="/assets/images/person_90dp_FFF.svg" alt="foto perfil">
           }
         </div>
       </div>
