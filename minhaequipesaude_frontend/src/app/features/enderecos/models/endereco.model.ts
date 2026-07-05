@@ -10,4 +10,5 @@ export interface Endereco {
   observacao?: string[];
   acs: string;
   equipe_vinculada?: string;
+  aviso?: string;
 }

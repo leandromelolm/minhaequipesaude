@@ -1,6 +1,6 @@
 <section class="busca-ruas-section">
   <div class="search-container">
-    <h2>Buscar Endereço</h2>
+    <h3>Buscar Endereço</h3>
     <div class="search-box">
       <div class="search-wrapper">
         <input type="text" placeholder="Digite o nome da rua, travessa, beco..." [(ngModel)]="termoBusca"
@@ -50,10 +50,17 @@
             <h3>{{ endereco.logradouro }}</h3>
             <span class="bairro-badge">{{ endereco.micro }}</span>
           </div>
-
-          <p class="rua-location">{{ endereco.bairro }} - CEP:{{ endereco.cep }}</p>
-          <p class="rua-location">Agente de Saúde: {{ endereco.acs }}</p>
+          <div>
+            <span class="rua-location">{{ endereco.bairro }}</span>
+            <div *ngIf="endereco.cep" class="rua-location">CEP:{{ endereco.cep }}</div>
+          </div>
           <p class="rua-location">Equipe {{ endereco.equipe_vinculada }}</p>
+          <div [class]="'classe-micro-' + (endereco?.micro?.split(' ')?.pop() || '')">
+            Agente de Saúde: {{ endereco.acs }}
+          </div>
+          <div *ngIf="endereco.aviso" class="aviso-alerta">
+            <strong>Atenção: </strong>{{ endereco.aviso }}
+          </div>
         </div>
       </div>
     </ng-template>
