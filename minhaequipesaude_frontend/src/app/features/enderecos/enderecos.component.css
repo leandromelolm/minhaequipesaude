@@ -476,3 +476,7 @@
   font-family: sans-serif;
   font-size: 16px;
 }
+
+d__none {
+  display: none;
+}

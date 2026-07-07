@@ -7,7 +7,7 @@ import { isPlatformBrowser } from '@angular/common';
 
 interface RespostaBuscaApi {
   success: boolean;
-  data: Endereco | null;
+  data: Endereco[] | null;
   message?: string;
   error?: string;
 }
@@ -86,7 +86,7 @@ export class EnderecosService {
     );
   }
 
-  buscarEnderecoPorLogradouroENumero(inputUsuario: string): Observable<Endereco | null> {
+  buscarEnderecoPorLogradouroENumero(inputUsuario: string): Observable<Endereco[] | null> {
     if (!inputUsuario || !inputUsuario.trim()) {
       return of(null);
     }

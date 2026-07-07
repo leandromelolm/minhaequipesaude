@@ -69,19 +69,16 @@ export class EnderecosComponent implements OnInit {
 
     this.enderecoService.buscarEnderecoPorLogradouroENumero(logradouro)
       .pipe(
-
         finalize(() => {
           this.carregandoApi = false;
         })
       )
       .subscribe({
-        next: (endereco) => {
-          if (endereco) {
-            // console.log("Endereço encontrado na API:", endereco);
-            this.enderecos$ = of([endereco]);
+        next: (enderecos) => {
+          if (enderecos && enderecos.length > 0) {
+            this.enderecos$ = of(enderecos);
             this.buscaApiSemResultado = false;
           } else {
-            // console.log("API retornou null (não encontrado).");
             this.buscaApiSemResultado = true;
             this.enderecos$ = of([]);
           }
