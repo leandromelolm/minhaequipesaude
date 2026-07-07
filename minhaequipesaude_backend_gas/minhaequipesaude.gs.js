@@ -51,7 +51,6 @@ function getDataAddress(sheetName) {
   return output.setMimeType(ContentService.MimeType.JSON);
 }
 
-// Remove vírgulas, remove espaços duplicados e transforma em minúsculo
 function limparTexto(texto) {
   if (texto === undefined || texto === null) return "";
   return String(texto)
@@ -66,7 +65,7 @@ function searchAddress(ss, logradouroBuscadoBruto, numeroBuscadoBruto) {
   let numeroBuscado = limparTexto(numeroBuscadoBruto);
 
   let output = ContentService.createTextOutput().setMimeType(ContentService.MimeType.JSON);
-  let response = { success: false, data: null };
+  let response = { success: false, data: [] };
 
   if (!logradouroBuscado || !numeroBuscado) {
     response.error = "Parametros 'logradouro' e 'numero' sao obrigatorios.";
@@ -81,16 +80,16 @@ function searchAddress(ss, logradouroBuscadoBruto, numeroBuscadoBruto) {
     return output.setContent(JSON.stringify(response));
   }
 
-  // Nova lógica de busca usando .includes()
-  let encontrado = todosEnderecos.find(function (item) {
+  let encontrados = todosEnderecos.filter(function (item) {
     let logradouroPlanilha = limparTexto(item.logradouro);
     let numeroPlanilha = limparTexto(item.numero);
+
     return logradouroPlanilha.includes(logradouroBuscado) && numeroPlanilha === numeroBuscado;
   });
 
-  if (encontrado) {
+  if (encontrados.length > 0) {
     response.success = true;
-    response.data = encontrado;
+    response.data = encontrados;
   } else {
     response.message = "Nenhum endereco correspondente foi encontrado.";
   }
@@ -187,13 +186,14 @@ CRIAR PLANILHA
 
 
 COLUNA DAS FOLHAS:
-  ENDERECO
-  id	logradouro	bairro	cidade	cep	complemento	observacao	acs	equipe_vinculada
 
-  PROFISSIONAL
-  id	nome	especialidade	registro	descricao	equipe	unidade
+ENDERECO
+id	logradouro	numero	cep	bairro	micro	cidade	complemento	observacao	acs	equipe_vinculada	aviso
 
-  EQUIPE
-  id	nome	ine	apelido	registro	descricao	unidade
+PROFISSIONAL
+id	nome	funcao	especialidade	registro	descricao	equipe	unidade	url_foto
+
+EQUIPE
+id	nome	ine	apelido	registro	descricao	unidade
 
 */
