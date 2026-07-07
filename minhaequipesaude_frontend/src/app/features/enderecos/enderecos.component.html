@@ -37,6 +37,7 @@
         <p class="sub-text">Verifique o nome do endereço e os números digitados.</p>
       </div>
 
+      @if(!buscaApiSemResultado) {
       <div *ngIf="enderecos$ | async as listaEnderecos; else carregando" class="ruas-list">
 
         <div *ngIf="listaEnderecos.length === 0 && !buscaApiSemResultado" class="no-results">
@@ -51,10 +52,12 @@
             <span class="bairro-badge">{{ endereco.micro }}</span>
           </div>
           <div>
-            <span class="rua-location">{{ endereco.bairro }}</span>
-            <div *ngIf="endereco.cep" class="rua-location">CEP:{{ endereco.cep }}</div>
+            <div class="classe-info-logradouro">
+              <span class="rua-location">{{ endereco.bairro }}</span>
+              <div *ngIf="endereco.cep" class="rua-location">CEP:{{ endereco.cep }}</div>
+              <p class="rua-location">Equipe {{ endereco.equipe_vinculada }}</p>
+            </div>
           </div>
-          <p class="rua-location">Equipe {{ endereco.equipe_vinculada }}</p>
           <div [class]="'classe-micro-' + (endereco?.micro?.split(' ')?.pop() || '')">
             Agente de Saúde: {{ endereco.acs }}
           </div>
@@ -63,6 +66,7 @@
           </div>
         </div>
       </div>
+      }
     </ng-template>
 
     <ng-template #carregando>
