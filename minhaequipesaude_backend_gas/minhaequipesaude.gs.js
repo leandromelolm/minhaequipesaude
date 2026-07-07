@@ -53,7 +53,7 @@ function getDataAddress(sheetName) {
 
 // Remove vírgulas, remove espaços duplicados e transforma em minúsculo
 function limparTexto(texto) {
-  if (!texto) return "";
+  if (texto === undefined || texto === null) return "";
   return String(texto)
     .replace(/,/g, "")
     .replace(/\s+/g, " ")
@@ -61,15 +61,16 @@ function limparTexto(texto) {
     .toLowerCase();
 }
 
-function searchAddress(ss, logradouroBuscadoBruto, numeroBuscado) {
+function searchAddress(ss, logradouroBuscadoBruto, numeroBuscadoBruto) {
   let logradouroBuscado = limparTexto(logradouroBuscadoBruto);
-  let output = ContentService.createTextOutput();
+  let numeroBuscado = limparTexto(numeroBuscadoBruto);
+
+  let output = ContentService.createTextOutput().setMimeType(ContentService.MimeType.JSON);
   let response = { success: false, data: null };
 
   if (!logradouroBuscado || !numeroBuscado) {
     response.error = "Parametros 'logradouro' e 'numero' sao obrigatorios.";
-    output.setContent(JSON.stringify(response));
-    return output.setMimeType(ContentService.MimeType.JSON);
+    return output.setContent(JSON.stringify(response));
   }
 
   let sheetEndereco = ss.getSheetByName(env().SH_ENDERECO);
@@ -77,16 +78,14 @@ function searchAddress(ss, logradouroBuscadoBruto, numeroBuscado) {
 
   if (todosEnderecos instanceof Error) {
     response.error = todosEnderecos.message;
-    output.setContent(JSON.stringify(response));
-    return output.setMimeType(ContentService.MimeType.JSON);
+    return output.setContent(JSON.stringify(response));
   }
 
+  // Nova lógica de busca usando .includes()
   let encontrado = todosEnderecos.find(function (item) {
-    let logradouroPlanilha = String(item.logradouro || "").trim().toLowerCase();
-    let numeroPlanilha = String(item.numero || "").trim().toLowerCase();
-
-    return logradouroPlanilha === String(logradouroBuscado).trim().toLowerCase() &&
-      numeroPlanilha === String(numeroBuscado).trim().toLowerCase();
+    let logradouroPlanilha = limparTexto(item.logradouro);
+    let numeroPlanilha = limparTexto(item.numero);
+    return logradouroPlanilha.includes(logradouroBuscado) && numeroPlanilha === numeroBuscado;
   });
 
   if (encontrado) {
@@ -96,8 +95,7 @@ function searchAddress(ss, logradouroBuscadoBruto, numeroBuscado) {
     response.message = "Nenhum endereco correspondente foi encontrado.";
   }
 
-  output.setContent(JSON.stringify(response));
-  return output.setMimeType(ContentService.MimeType.JSON);
+  return output.setContent(JSON.stringify(response));
 }
 
 function readData(sheet, colunasIgnoradas = []) {
