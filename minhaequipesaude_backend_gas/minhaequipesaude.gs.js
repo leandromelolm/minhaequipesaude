@@ -18,13 +18,13 @@ function doGet(e) {
   if (op == "search") {
     let logradouro = e.parameter.logradouro;
     let numero = e.parameter.numero;
-    return searchEndereco(ss, logradouro, numero);
+    return searchAddress(ss, logradouro, numero);
   }
 }
 
 function getBySheetName(ss, sheetNumber) {
   if (sheetNumber == 1) {
-    return getDataAll(ss.getSheetByName(env().SH_ENDERECO))
+    return getDataAddress(ss.getSheetByName(env().SH_ENDERECO))
   }
 
   if (sheetNumber == 2) {
@@ -44,6 +44,13 @@ function getDataAll(sheetName) {
   return output.setMimeType(ContentService.MimeType.JSON);
 }
 
+function getDataAddress(sheetName) {
+  let output = ContentService.createTextOutput(), data = {};
+  data.content = readData(sheetName, ['numero']);
+  output.setContent(JSON.stringify(data));
+  return output.setMimeType(ContentService.MimeType.JSON);
+}
+
 // Remove vírgulas, remove espaços duplicados e transforma em minúsculo
 function limparTexto(texto) {
   if (!texto) return "";
@@ -54,7 +61,7 @@ function limparTexto(texto) {
     .toLowerCase();
 }
 
-function searchEndereco(ss, logradouroBuscadoBruto, numeroBuscado) {
+function searchAddress(ss, logradouroBuscadoBruto, numeroBuscado) {
   let logradouroBuscado = limparTexto(logradouroBuscadoBruto);
   let output = ContentService.createTextOutput();
   let response = { success: false, data: null };
@@ -93,22 +100,32 @@ function searchEndereco(ss, logradouroBuscadoBruto, numeroBuscado) {
   return output.setMimeType(ContentService.MimeType.JSON);
 }
 
-function readData(sheet) {
+function readData(sheet, colunasIgnoradas = []) {
   try {
-    properties = getHeaderRow(sheet);
-    properties = properties.map(
-      function (p) {
-        return p.replace(/\s+/g, '_');
-      });
+    const ignorarFormatado = colunasIgnoradas.map(p => p.trim());
+    let originalHeaders = getHeaderRow(sheet);
+
+    // Cria a lista modificada com underlines
+    let properties = originalHeaders.map(function (p) {
+      return String(p).replace(/\s+/g, '_');
+    });
 
     let rows = getDataRows(sheet),
       data = [];
+
     for (let r = 0, l = rows.length; r < l; r++) {
       let row = rows[r],
         record = {};
+
       for (let p in properties) {
         let columnName = properties[p];
+        let originalName = originalHeaders[p];
         let cellValue = row[p];
+
+        if (ignorarFormatado.includes(originalName)) {
+          continue;
+        }
+
         if (columnName === "observacao" && typeof cellValue === "string" && cellValue !== "") {
           record[columnName] = cellValue.split(';').map(function (item) {
             return item.trim();
@@ -120,15 +137,6 @@ function readData(sheet) {
       data.push(record);
     }
     return data;
-
-  } catch (error) {
-    return error;
-  }
-}
-
-function getDataRows(sheet) {
-  try {
-    return sheet.getRange(2, 1, sheet.getLastRow() - 1, sheet.getLastColumn()).getValues();
   } catch (error) {
     return error;
   }
@@ -136,7 +144,21 @@ function getDataRows(sheet) {
 
 function getHeaderRow(sheet) {
   try {
-    return sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
+    let lastColumn = sheet.getLastColumn();
+    if (lastColumn === 0) return [];
+    return sheet.getRange(1, 1, 1, lastColumn).getValues()[0];
+  } catch (error) {
+    return error;
+  }
+}
+
+function getDataRows(sheet) {
+  try {
+    let lastRow = sheet.getLastRow();
+    let lastColumn = sheet.getLastColumn();
+    if (lastRow <= 1 || lastColumn === 0) return [];
+
+    return sheet.getRange(2, 1, lastRow - 1, lastColumn).getValues();
   } catch (error) {
     return error;
   }
