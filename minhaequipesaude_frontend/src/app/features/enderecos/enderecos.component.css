@@ -484,11 +484,16 @@
 
 .div__acs {
   font-weight: bold;
+  font-size: larger;
   margin-left: 5px;
 }
 
 .d_flex {
   display: flex;
+}
+
+.align-item-center {
+  align-items: center;
 }
 
 @media (max-width: 1024px) {
