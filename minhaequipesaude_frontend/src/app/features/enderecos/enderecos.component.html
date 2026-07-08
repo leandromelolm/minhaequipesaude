@@ -52,16 +52,17 @@
             <span class="bairro-badge">{{ endereco.micro }}</span>
           </div>
           <div>
-            <div class="classe-info-logradouro">
+            <div class="classe-info-logradouro detalhe_endereco">
               <span class="rua-location">{{ endereco.bairro }}</span>
               <div *ngIf="endereco.cep" class="rua-location">CEP:{{ endereco.cep }}</div>
               <p class="rua-location">Equipe {{ endereco.equipe_vinculada }}</p>
             </div>
           </div>
-          <div [class]="'classe-micro-' + (endereco?.micro?.split(' ')?.pop() || '')">
-            Agente de Saúde: {{ endereco.acs }}
+          <div [class]="'classe-micro-' + (endereco?.micro?.split(' ')?.pop() || '')" class="d_flex detalhe_endereco">
+            <div class="div__acs_txt">Agente de Saúde:</div>
+            <div class="div__acs">{{ endereco.acs }}</div>
           </div>
-          <div *ngIf="endereco.aviso" class="aviso-alerta">
+          <div *ngIf="endereco.aviso" class="aviso-alerta detalhe_endereco">
             <strong>Atenção: </strong>{{ endereco.aviso }}
           </div>
         </div>
