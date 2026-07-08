@@ -11,21 +11,25 @@
           <option *ngFor="let endereco of (enderecos$ | async)" [value]="endereco.logradouro">
         </datalist>
 
-        <input *ngIf="termoBusca.trim().length > 5" type="text" placeholder="Número" [(ngModel)]="numeroBusca"
-          class="search-input input-numero" (keyup.enter)="dispararBuscaExata()" />
+        <div class="search-actions-container" *ngIf="termoBusca.trim().length > 5 || termoBusca || numeroBusca">
 
-        <div class="search-actions-new">
-          <button *ngIf="termoBusca || numeroBusca" class="action-btn clear-btn-new" (click)="limparBusca()"
-            title="Limpar pesquisa">
-            <span class="clear-icon">&times;</span>
-          </button>
+          <input *ngIf="termoBusca.trim().length > 5" type="text" placeholder="Número" [(ngModel)]="numeroBusca"
+            class="search-input input-numero" (keyup.enter)="dispararBuscaExata()" />
 
-          <button *ngIf="numeroBusca.trim().length >= 2" class="action-btn submit-btn-new"
-            (click)="dispararBuscaExata()" title="Buscar endereço exato">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="icon-arrow">
-              <path d="M5 13h11.86l-5.43 5.43 1.42 1.42L21.14 12l-8.29-8.29-1.42 1.42L16.86 11H5v2z" />
-            </svg>
-          </button>
+          <div class="search-actions-new">
+            <button *ngIf="termoBusca || numeroBusca" class="action-btn clear-btn-new" (click)="limparBusca()"
+              title="Limpar pesquisa">
+              <span class="clear-icon">&times;</span>
+            </button>
+
+            <button *ngIf="numeroBusca.trim().length >= 2" class="action-btn submit-btn-new"
+              (click)="dispararBuscaExata()" title="Buscar endereço exato">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="icon-arrow">
+                <path d="M5 13h11.86l-5.43 5.43 1.42 1.42L21.14 12l-8.29-8.29-1.42 1.42L16.86 11H5v2z" />
+              </svg>
+            </button>
+          </div>
+
         </div>
 
       </div>

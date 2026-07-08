@@ -25,10 +25,17 @@
 
 .search-wrapper.flex-column-gap {
   display: flex;
-  gap: 10px;
+  gap: 12px;
   align-items: center;
   position: relative;
   width: 100%;
+}
+
+.search-actions-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
 }
 
 .search-input {
@@ -48,7 +55,7 @@
 }
 
 .input-numero {
-  max-width: 100px;
+  max-width: 90px;
   text-align: center;
   animation: fadeIn 0.3s ease-in-out;
 }
@@ -66,7 +73,6 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-left: 4px;
 }
 
 @keyframes fadeIn {
@@ -92,8 +98,8 @@
   border-radius: 50%;
   transition: background-color 0.2s ease, color 0.2s ease;
   color: #718096;
-  width: 32px;
-  height: 32px;
+  width: 50px !important;
+  height: 50px !important;
 }
 
 .search-actions-new .action-btn {
@@ -103,7 +109,7 @@
   align-items: center;
   justify-content: center;
   height: 46px;
-  padding: 0 16px;
+  /* padding: 0 16px; */
   border-radius: 8px;
   font-weight: 600;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
@@ -533,23 +539,31 @@
 
   .search-wrapper.flex-column-gap {
     flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .search-actions-container {
+    width: 100%;
+    justify-content: space-between;
     gap: 8px;
   }
 
   .input-numero {
-    max-width: 100%;
+    max-width: 120px;
+    flex-grow: 1;
   }
 
   .search-actions-new {
-    width: 100%;
+    flex-grow: 2;
     justify-content: flex-end;
-    margin-left: 0;
-    margin-top: 4px;
+    gap: 6px;
   }
 
   .clear-btn-new,
   .submit-btn-new {
     flex: 1;
     height: 42px;
+    padding: 0 12px;
   }
 }
