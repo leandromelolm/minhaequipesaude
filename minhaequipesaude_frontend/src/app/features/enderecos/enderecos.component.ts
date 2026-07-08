@@ -17,6 +17,7 @@ export class EnderecosComponent implements OnInit {
 
   private platformId = inject(PLATFORM_ID);
   termoBusca: string = '';
+  numeroBusca: string = ''; // <-- Nova propriedade
   enderecoSelecionado: Endereco | null = null;
 
   private enderecoService = inject(EnderecosService);
@@ -43,6 +44,7 @@ export class EnderecosComponent implements OnInit {
 
   buscar(): void {
     if (!this.termoBusca || !this.termoBusca.trim()) {
+      this.numeroBusca = '';
       this.carregarDadosIniciais();
       return;
     }
@@ -52,8 +54,14 @@ export class EnderecosComponent implements OnInit {
 
   selecionarRua(endereco: Endereco): void {
     this.enderecoSelecionado = endereco;
-    this.termoBusca = `${endereco.logradouro} `;
-    // this.buscar();
+    this.termoBusca = endereco.logradouro;
+  }
+
+  dispararBuscaExata(): void {
+    if (this.numeroBusca.trim().length < 2) return;
+
+    const buscaCompleta = `${this.termoBusca.trim()}, ${this.numeroBusca.trim()}`;
+    this.buscarEnderecoComNumero(buscaCompleta);
   }
 
   fecharDetalhes(): void {
@@ -93,6 +101,7 @@ export class EnderecosComponent implements OnInit {
 
   limparBusca(): void {
     this.termoBusca = '';
+    this.numeroBusca = '';
     this.enderecoSelecionado = null;
     this.buscaApiSemResultado = false;
     this.recargarListaCompleta();

@@ -23,16 +23,17 @@
   width: 100%;
 }
 
-.search-wrapper {
+.search-wrapper.flex-column-gap {
+  display: flex;
+  gap: 10px;
+  align-items: center;
   position: relative;
   width: 100%;
-  display: flex;
-  align-items: center;
 }
 
 .search-input {
   width: 100%;
-  padding: 1rem 5.5rem 1rem 1.5rem;
+  padding: 1rem 1.5rem;
   font-size: 1rem;
   border: none;
   border-radius: 8px;
@@ -46,6 +47,12 @@
   box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
 }
 
+.input-numero {
+  max-width: 100px;
+  text-align: center;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
 .search-actions {
   position: absolute;
   right: 12px;
@@ -53,6 +60,25 @@
   align-items: center;
   gap: 6px;
   z-index: 2;
+}
+
+.search-actions-new {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 4px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .action-btn {
@@ -70,9 +96,57 @@
   height: 32px;
 }
 
+.search-actions-new .action-btn {
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 46px;
+  padding: 0 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.25s ease-in-out, transform 0.25s ease-in-out, box-shadow 0.25s ease-in-out;
+}
+
 .clear-btn {
   font-size: 1.5rem;
   line-height: 1;
+}
+
+.clear-btn-new {
+  background-color: #fee2e2;
+  color: #ef4444;
+}
+
+.clear-btn-new:hover {
+  background-color: #ef4444;
+  color: #ffffff;
+  box-shadow: 0 6px 15px rgba(239, 68, 68, 0.35);
+  transform: translateY(-1px);
+}
+
+.clear-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.submit-btn-new {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  color: #ffffff;
+}
+
+.submit-btn-new:hover {
+  background: linear-gradient(135deg, #1d4ed8 0%, #1e3a8a 100%);
+  box-shadow: 0 6px 15px rgba(102, 126, 234, 0.4);
+  transform: translateY(-1px);
+}
+
+.submit-btn-new .icon-arrow {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
 }
 
 .clear-btn:hover {
@@ -82,7 +156,6 @@
 .submit-btn:hover {
   color: #667eea;
 }
-
 
 .search-icon {
   position: absolute;
@@ -95,15 +168,12 @@
   pointer-events: none;
 }
 
-/* Results Container */
 .results-container {
   display: grid;
-  /* grid-template-columns: 1fr 1fr; */
   gap: 2rem;
   margin-bottom: 2rem;
 }
 
-/* No Results */
 .no-results {
   grid-column: 1 / -1;
   text-align: center;
@@ -114,7 +184,6 @@
   font-size: 1.125rem;
 }
 
-/* Ruas List */
 .ruas-list {
   background: white;
   border-radius: 8px;
@@ -178,11 +247,6 @@
   color: #718096;
 }
 
-.rua-item.selected .rua-location {
-  /* color: rgba(255, 255, 255, 0.9); */
-}
-
-/* Rua Detalhes */
 .rua-detalhes {
   background: white;
   border-radius: 8px;
@@ -286,57 +350,6 @@
   flex-shrink: 0;
 }
 
-/* Responsive Design */
-@media (max-width: 1024px) {
-  .results-container {
-    grid-template-columns: 1fr;
-  }
-
-  .rua-detalhes {
-    grid-column: 1;
-    grid-row: auto;
-  }
-}
-
-@media (max-width: 768px) {
-  .busca-ruas-section {
-    padding: 1rem 1rem;
-  }
-
-  .search-container h2 {
-    font-size: 2rem;
-  }
-
-  .ruas-list {
-    max-height: 400px;
-  }
-
-  .rua-detalhes {
-    max-height: 400px;
-  }
-
-  .detalhes-content {
-    max-height: 350px;
-  }
-}
-
-@media (max-width: 480px) {
-  .search-container h2 {
-    font-size: 1.5rem;
-  }
-
-  .rua-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-  }
-
-  .bairro-badge {
-    font-size: 0.75rem;
-    padding: 0.2rem 0.5rem;
-  }
-}
-
 .loading-container {
   display: flex;
   flex-direction: column;
@@ -351,7 +364,6 @@
   height: 40px;
   border: 4px solid rgba(0, 0, 0, 0.1);
   border-top-color: #007bff;
-
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin-bottom: 1rem;
@@ -426,35 +438,30 @@
   color: #1f2937;
 }
 
-/* Azul Pastel */
 .classe-micro-1 {
   background-color: #f0fdfa;
   border-left: 6px solid #06b6d4;
   color: #0083a3;
 }
 
-/* Azul Céu */
 .classe-micro-2 {
   background-color: #e0f2fe;
   border-left: 0.375rem solid #38bdf8;
   color: #0369a1;
 }
 
-/* Azul Royal */
 .classe-micro-3 {
   background-color: #dbeafe;
   border-left: 6px solid #2563eb;
   color: #1e40af;
 }
 
-/* Azul Índigo */
 .classe-micro-4 {
   background-color: #e0e7ff;
   border-left: 6px solid #4f46e5;
   color: #3730a3;
 }
 
-/* Azul Marinho */
 .classe-micro-5 {
   background-color: #eff6ff;
   border-left: 6px solid #1d4ed8;
@@ -476,4 +483,73 @@
 
 .d_flex {
   display: flex;
+}
+
+@media (max-width: 1024px) {
+  .results-container {
+    grid-template-columns: 1fr;
+  }
+
+  .rua-detalhes {
+    grid-column: 1;
+    grid-row: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .busca-ruas-section {
+    padding: 1rem 1rem;
+  }
+
+  .search-container h2 {
+    font-size: 2rem;
+  }
+
+  .ruas-list,
+  .rua-detalhes {
+    max-height: 400px;
+  }
+
+  .detalhes-content {
+    max-height: 350px;
+  }
+}
+
+@media (max-width: 480px) {
+  .search-container h2 {
+    font-size: 1.5rem;
+  }
+
+  .rua-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .bairro-badge {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.5rem;
+  }
+
+  .search-wrapper.flex-column-gap {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .input-numero {
+    max-width: 100%;
+  }
+
+  .search-actions-new {
+    width: 100%;
+    justify-content: flex-end;
+    margin-left: 0;
+    margin-top: 4px;
+  }
+
+  .clear-btn-new,
+  .submit-btn-new {
+    flex: 1;
+    height: 42px;
+  }
 }
