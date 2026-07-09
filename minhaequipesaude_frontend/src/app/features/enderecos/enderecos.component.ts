@@ -25,6 +25,7 @@ export class EnderecosComponent implements OnInit {
 
   carregandoApi: boolean = false;
   buscaApiSemResultado: boolean = false;
+  private timeoutBuscaId: any;
 
   listaDeEnderecos: Endereco[] = [];
   private sub!: Subscription;
@@ -69,16 +70,32 @@ export class EnderecosComponent implements OnInit {
   }
 
   buscarEnderecoComNumero(logradouro: string): void {
-    if (!logradouro || !logradouro.trim()) return;
+    if (!logradouro || !logradouro.trim() || this.carregandoApi) return;
+
+    // Limpa timeout
+    if (this.timeoutBuscaId) {
+      clearTimeout(this.timeoutBuscaId);
+    }
 
     this.carregandoApi = true;
     this.buscaApiSemResultado = false;
     this.enderecoSelecionado = null;
 
+    // timeout de segurança para destravar após 15 segundos
+    this.timeoutBuscaId = setTimeout(() => {
+      if (this.carregandoApi) {
+        this.carregandoApi = false;
+        console.warn("A requisição excedeu o tempo limite de 15 segundos. Botão liberado.");
+      }
+    }, 15000);
+
     this.enderecoService.buscarEnderecoPorLogradouroENumero(logradouro)
       .pipe(
         finalize(() => {
           this.carregandoApi = false;
+          if (this.timeoutBuscaId) {
+            clearTimeout(this.timeoutBuscaId);
+          }
         })
       )
       .subscribe({

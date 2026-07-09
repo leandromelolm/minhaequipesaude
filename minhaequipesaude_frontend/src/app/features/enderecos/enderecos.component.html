@@ -23,10 +23,10 @@
             </button>
 
             <button *ngIf="numeroBusca.trim().length >= 2" class="action-btn submit-btn-new"
-              (click)="dispararBuscaExata()" title="Buscar endereço exato">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="icon-arrow">
-                <path d="M5 13h11.86l-5.43 5.43 1.42 1.42L21.14 12l-8.29-8.29-1.42 1.42L16.86 11H5v2z" />
-              </svg>
+              [class.loading-active]="carregandoApi" [disabled]="carregandoApi" (click)="dispararBuscaExata()"
+              title="Buscar endereço exato">
+              <img *ngIf="!carregandoApi" src="/assets/images/icon-arrow.svg" alt="pesquisar" class="icon-arrow">
+              <span *ngIf="carregandoApi" class="btn-spinner"></span>
             </button>
           </div>
 

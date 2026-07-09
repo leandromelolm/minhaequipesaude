@@ -134,7 +134,7 @@
 }
 
 .clear-icon {
-  font-size: 1.5rem;
+  font-size: 2.0rem;
   line-height: 1;
 }
 
@@ -150,9 +150,23 @@
 }
 
 .submit-btn-new .icon-arrow {
-  width: 20px;
-  height: 20px;
-  fill: currentColor;
+  width: 30px;
+  height: 30px;
+  filter: invert(100%) sepia(100%) saturate(0%) brightness(1000%) contrast(1000%);
+
+  animation: acenarHorizontal 1.2s infinite ease-in-out;
+}
+
+@keyframes acenarHorizontal {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(4px);
+  }
 }
 
 .clear-btn:hover {
@@ -161,6 +175,24 @@
 
 .submit-btn:hover {
   color: #667eea;
+}
+
+.submit-btn-new:disabled,
+.submit-btn-new.loading-active {
+  background: #a0aec0 !important;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none !important;
+  opacity: 0.7;
+}
+
+.btn-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
 }
 
 .search-icon {
@@ -379,11 +411,6 @@
   to {
     transform: rotate(360deg);
   }
-}
-
-.icon-arrow {
-  width: 20px;
-  height: 20px;
 }
 
 .results-loading-wrapper {
