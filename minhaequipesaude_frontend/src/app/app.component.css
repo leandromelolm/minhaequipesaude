@@ -8,6 +8,18 @@
   background: linear-gradient(135deg, #0227cc 0%, #f3f5ff 100%);
 }
 
+.sidebar-desktop {
+  display: none;
+}
+
+@media screen and (min-width: 576px) {
+
+  .sidebar-desktop {
+    display: block;
+  }
+
+}
+
 /* Header */
 .header {
   background: rgba(255, 255, 255, 0.95);
@@ -117,6 +129,10 @@
   /* border-bottom-left-radius: 10px;  */
 }
 
+.txt__menu {
+  font-size: 70%;
+}
+
 /* Main Content */
 .main-content {
   flex: 1;
@@ -204,4 +220,13 @@
 
 .icone_menu {
   padding: 0 4px 0 0;
+}
+
+/* Adiciona o espaço no final da página apenas quando o menu estiver visível */
+@media screen and (max-width: 576px) and (orientation: portrait) {
+
+  body,
+  .main-container {
+    padding-bottom: 70px;
+  }
 }
