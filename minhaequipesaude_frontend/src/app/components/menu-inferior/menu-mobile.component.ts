@@ -9,8 +9,6 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 })
 export class MenuMobileComponent {
 
-  toggleMenu() {
-    console.log('Menu lateral ou opções extras clicado!');
-  }
+  toggleMenu() { }
 
 }
