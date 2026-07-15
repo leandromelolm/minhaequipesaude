@@ -8,6 +8,12 @@
     text-align: center;
     margin-bottom: 3rem;
     color: white;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: rgb(252, 255, 203);
 }
 
 .container-responsivo {

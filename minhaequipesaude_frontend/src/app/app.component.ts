@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { MenuMobileComponent } from './components/menu-inferior/menu-mobile.component';
+import { MenuMobileComponent } from './components/menu-mobile/menu-mobile.component';
 // import { NgOptimizedImage } from '@angular/common';
 
 @Component({
