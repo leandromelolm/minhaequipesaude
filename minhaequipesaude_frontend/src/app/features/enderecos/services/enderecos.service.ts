@@ -28,7 +28,8 @@ export class EnderecosService {
 
   private readonly CACHE_KEY = 'enderecos_data';
   private readonly TIME_KEY = 'enderecos_last_fetch';
-  private readonly CACHE_DURATION_MS = 300000; // 5 minutos
+  // private readonly CACHE_DURATION_MS = 300000; // 5 minutos
+  private readonly CACHE_DURATION_MS = 3600000; // 60 minutos
 
   private enderecosSignal = signal<Endereco[]>([]);
 

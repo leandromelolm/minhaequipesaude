@@ -21,7 +21,8 @@ export class ProfissionaisService {
 
   private readonly CACHE_KEY = 'profissionais_data';
   private readonly TIME_KEY = 'profissionais_last_fetch';
-  private readonly CACHE_DURATION_MS = 300000; // 5 minutos
+  // private readonly CACHE_DURATION_MS = 3600000; // 60 minutos
+  private readonly CACHE_DURATION_MS = 7200000; // 120 minutos
 
   constructor(private http: HttpClient) { }
 
