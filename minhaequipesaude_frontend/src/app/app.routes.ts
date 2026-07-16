@@ -7,7 +7,8 @@ import { SobreComponent } from './features/sobre/sobre.component';
 export const routes: Routes = [
   // linha seguinte da problema em produção no firebase. a rota "" não encontra página
   // { path: '', redirectTo: 'profissionais/4', pathMatch: 'full' },
-  { path: '', component: ProfissionaisComponent },
+  // { path: '', component: ProfissionaisComponent },
+  { path: '', component: SobreComponent },
   { path: 'equipes', component: EquipesComponent },
   { path: 'profissionais', component: ProfissionaisComponent },
   { path: 'profissionais/:equipeApelido', component: ProfissionaisComponent },
