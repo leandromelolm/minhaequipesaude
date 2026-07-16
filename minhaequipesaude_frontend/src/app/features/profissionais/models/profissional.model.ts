@@ -6,6 +6,7 @@ export interface Profissional {
   registro: string;
   descricao: string;
   equipe?: string | number;
+  contato?: string | number;
   unidade?: string;
   url_foto?: string;
 }
