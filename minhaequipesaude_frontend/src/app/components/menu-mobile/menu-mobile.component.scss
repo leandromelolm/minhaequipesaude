@@ -20,6 +20,13 @@
     width: 100%;
 }
 
+.nav-list li.active {
+    background-color: transparent;
+    color: #0052a3;
+    border-bottom-color: #0052a3;
+    font-weight: bold;
+}
+
 .nav-item {
     display: flex;
     flex-direction: column;
@@ -53,15 +60,10 @@
     background-position: center;
 }
 
-.icone-equipes {
-    // background-image: url('assets/icons/pin.svg');
-}
-
 .icon-menu {
     background-image: url('../../../../../minhaequipesaude_frontend/public/assets/images/usf_vsm.webp');
 }
 
-/* Por padrão, o menu fica totalmente escondido (computadores, tablets e telas grandes) */
 .bottom-nav {
     display: none;
 }
@@ -70,7 +72,6 @@
 @media screen and (max-width: 576px) and (orientation: portrait) {
     .bottom-nav {
         display: block;
-        /* Torna o menu visível */
         position: fixed;
         bottom: 0;
         left: 0;
