@@ -4,12 +4,13 @@ import { Profissional } from './models/profissional.model';
 import { ProfissionaisService } from './services/profissionais.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { ProfissionalDetalhesComponent } from '../profissional-detalhes/profissional-detalhes.component';
 
 
 @Component({
   selector: 'app-profissionais',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ProfissionalDetalhesComponent],
   templateUrl: './profissionais.component.html',
   styleUrl: './profissionais.component.css'
 })
@@ -24,6 +25,7 @@ export class ProfissionaisComponent implements OnInit, OnDestroy {
 
   todosMembros = signal<Profissional[]>([]);
   carregando = signal<boolean>(true);
+  exibirComponenteProfissionalDetalhes: boolean = false;
 
   private sub: Subscription | null = null;
 
@@ -65,6 +67,11 @@ export class ProfissionaisComponent implements OnInit, OnDestroy {
     const apelido = this.equipeApelido();
     return apelido ? `${apelido}` : 'Geral';
   });
+
+  abrirComponenteProfissionalDetalhes(status: boolean): void {
+    this.exibirComponenteProfissionalDetalhes = status;
+    console.log(status)
+  }
 
   ngOnDestroy(): void {
     if (this.sub) {

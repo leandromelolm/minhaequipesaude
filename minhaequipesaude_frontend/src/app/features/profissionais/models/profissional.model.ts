@@ -4,7 +4,7 @@ export interface Profissional {
   funcao?: string;
   especialidade: string;
   registro: string;
-  descricao: string;
+  micro: string;
   equipe?: string | number;
   contato?: string | number;
   unidade?: string;

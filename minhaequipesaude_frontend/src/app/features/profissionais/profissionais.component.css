@@ -99,6 +99,11 @@
   margin: 0;
 }
 
+.a__contato {
+  cursor: pointer;
+  font-weight: bold;
+}
+
 .ico_ws {
   height: 20px;
   vertical-align: sub;
@@ -168,4 +173,26 @@
 
 .sem-membros {
   justify-items: center;
+}
+
+.team-card-back {
+  background: transparent;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  .h3-back {
+    color: white;
+  }
+}
+
+.team-info-back {
+  padding: 1.5rem;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.div__profissional-detalhes {
+  justify-self: center;
 }

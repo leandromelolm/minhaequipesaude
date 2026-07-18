@@ -4,6 +4,9 @@
     <h3>Equipe {{ tituloEquipe() }}</h3>
   </div>
 
+  @if (!exibirComponenteProfissionalDetalhes) {
+
+
   @if (carregando()) {
   <div class="loading-container">
     <div class="spinner"></div>
@@ -25,13 +28,16 @@
         </div>
       </div>
       <div class="team-info">
-        <h3>{{ membro.nome }}</h3>
+        <h3 (click)="abrirComponenteProfissionalDetalhes(true)">{{ membro.nome }}</h3>
         <p class="role">{{ membro.funcao }}</p>
         <p class="specialty">{{ membro.registro }}</p>
-        <p class="description">{{ membro.descricao }}
+        <p class="description">{{ membro.micro }}
           @if (membro.contato) {
-          <img class="ico_ws" src="/assets/images/icons-whatsapp.svg" alt="whatsapp">
-          {{membro.contato}}
+          <a (click)="abrirComponenteProfissionalDetalhes(true)" class="a__contato">
+            <img class="ico_ws" src="/assets/images/icons-whatsapp.svg" alt="whatsapp">
+            <!-- {{membro.contato}} -->
+            Mande uma mensagem
+          </a>
           }
         </p>
       </div>
@@ -43,4 +49,21 @@
     }
   </div>
   }
+  }
+
+  @if (exibirComponenteProfissionalDetalhes) {
+  <a class="team-grid" (click)="abrirComponenteProfissionalDetalhes(false)">
+    <div class="team-card-back">
+      <div class="team-info-back">
+        <img src="/assets/images/undo_24dp_FFF.svg" alt="imagem do membro">
+        <h3 class="h3-back">Voltar</h3>
+      </div>
+    </div>
+  </a>
+  <div class="div__profissional-detalhes">
+    <app-profissional-detalhes></app-profissional-detalhes>
+  </div>
+  }
+
+
 </section>
