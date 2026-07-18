@@ -19,6 +19,7 @@ export class ProfissionaisComponent implements OnInit, OnDestroy {
   private router = inject(Router);
   private platformId = inject(PLATFORM_ID);
   private profissionalService = inject(ProfissionaisService);
+  profissionalSelecionado: Profissional | null = null;
 
   // preencher o input automaticamente com o valor da URL :equipeApelido
   equipeApelido = input<string>('');
@@ -68,9 +69,13 @@ export class ProfissionaisComponent implements OnInit, OnDestroy {
     return apelido ? `${apelido}` : 'Geral';
   });
 
-  abrirComponenteProfissionalDetalhes(status: boolean): void {
+  abrirComponenteProfissionalDetalhes(status: boolean, profissional?: Profissional): void {
     this.exibirComponenteProfissionalDetalhes = status;
-    console.log(status)
+    if (status && profissional) {
+      this.profissionalSelecionado = profissional;
+    } else if (!status) {
+      this.profissionalSelecionado = null;
+    }
   }
 
   ngOnDestroy(): void {

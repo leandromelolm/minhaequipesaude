@@ -1,0 +1,104 @@
+.detalhes-container {
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    max-width: 600px;
+    margin: 1.5rem auto;
+    color: #333333;
+}
+
+.profissional-header h2 {
+    font-size: 1.75rem;
+    margin-bottom: 0.25rem;
+    color: #1e3a8a;
+}
+
+.profissional-header .funcao {
+    font-size: 1.1rem;
+    color: #4b5563;
+    margin-bottom: 0.5rem;
+}
+
+.profissional-header .micro {
+    font-size: 0.95rem;
+    color: #2563eb;
+}
+
+.divisor {
+    border: 0;
+    border-top: 1px solid #e5e7eb;
+    margin: 1.5rem 0;
+}
+
+.ruas-atendidas-section h3 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: #374151;
+}
+
+.select-wrapper {
+    margin-bottom: 1.5rem;
+}
+
+.select-ruas {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border: 2px solid #d1d5db;
+    border-radius: 8px;
+    background-color: #f9fafb;
+    color: #1f2937;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.select-ruas:focus {
+    border-color: #2563eb;
+}
+
+.action-section {
+    display: flex;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.btn-enviar-mensagem {
+    width: 100%;
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    color: #ffffff;
+    border: none;
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-enviar-mensagem:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(37, 99, 235, 0.3);
+}
+
+.btn-enviar-mensagem:active {
+    transform: translateY(0);
+}
+
+.sem-ruas {
+    color: #ef4444;
+    font-style: italic;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

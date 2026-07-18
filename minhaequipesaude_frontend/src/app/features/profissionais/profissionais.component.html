@@ -28,14 +28,13 @@
         </div>
       </div>
       <div class="team-info">
-        <h3 (click)="abrirComponenteProfissionalDetalhes(true)">{{ membro.nome }}</h3>
+        <h3 (click)="abrirComponenteProfissionalDetalhes(true, membro)">{{ membro.nome }}</h3>
         <p class="role">{{ membro.funcao }}</p>
         <p class="specialty">{{ membro.registro }}</p>
         <p class="description">{{ membro.micro }}
           @if (membro.contato) {
-          <a (click)="abrirComponenteProfissionalDetalhes(true)" class="a__contato">
+          <a (click)="abrirComponenteProfissionalDetalhes(true, membro)" class="a__contato">
             <img class="ico_ws" src="/assets/images/icons-whatsapp.svg" alt="whatsapp">
-            <!-- {{membro.contato}} -->
             Mande uma mensagem
           </a>
           }
@@ -51,8 +50,8 @@
   }
   }
 
-  @if (exibirComponenteProfissionalDetalhes) {
-  <a class="team-grid" (click)="abrirComponenteProfissionalDetalhes(false)">
+  @if (exibirComponenteProfissionalDetalhes && profissionalSelecionado) {
+  <a (click)="abrirComponenteProfissionalDetalhes(false)">
     <div class="team-card-back">
       <div class="team-info-back">
         <img src="/assets/images/undo_24dp_FFF.svg" alt="imagem do membro">
@@ -61,7 +60,7 @@
     </div>
   </a>
   <div class="div__profissional-detalhes">
-    <app-profissional-detalhes></app-profissional-detalhes>
+    <app-profissional-detalhes [profissional]="profissionalSelecionado"></app-profissional-detalhes>
   </div>
   }
 
