@@ -11,34 +11,44 @@
         <h3>Selecione sua rua para atendimento:</h3>
 
         @if (carregandoRuas()) {
-        <div class="loading-ruas">
-            <p>Buscando ruas da microárea...</p>
-        </div>
+            <div class="loading-ruas">
+                <p>Buscando ruas da microárea...</p>
+            </div>
         } @else {
         @if (ruasFiltradas().length > 0) {
-        <div class="select-wrapper">
-            <select [ngModel]="ruaSelecionada()" (ngModelChange)="ruaSelecionada.set($event)" class="select-ruas">
-                <option value="" disabled>-- Escolha a sua rua --</option>
-                @for (rua of ruasFiltradas(); track rua.id) {
-                <option [value]="rua.logradouro">
-                    {{ rua.logradouro }} @if(rua.bairro){ - {{ rua.bairro }} }
-                </option>
-                }
-            </select>
-        </div>
+            <div class="select-wrapper">
+                <select [ngModel]="ruaSelecionada()" (ngModelChange)="ruaSelecionada.set($event)" class="select-ruas">
+                    <option value="" disabled>-- Escolha a sua rua --</option>
+                    @for (rua of ruasFiltradas(); track rua.id) {
+                    <option [value]="rua.logradouro">
+                        {{ rua.logradouro }} @if(rua.bairro){ - {{ rua.bairro }} }
+                    </option>
+                    }
+                    <option value="nenhum">ENDEREÇO NÃO ENCONTRADO</option>
+                </select>
+                </div>
 
-        @if (ruaSelecionada()) {
-        <div class="action-section">
-            <button (click)="enviarMensagemAcs()" class="btn-enviar-mensagem">
-                <img class="ico_ws" src="/assets/images/icons-whatsapp.svg" alt="whatsapp">
-                <div>Enviar mensagem para seu Agente Comunitário de Saúde</div>
-            </button>
-        </div>
-        }
+            @if (ruaSelecionada() && ruaSelecionada() !== "nenhum") {
+            <div class="action-section">
+                <button (click)="enviarMensagemAcs()" class="btn-enviar-mensagem">
+                    <img class="ico_ws" src="/assets/images/icons-whatsapp.svg" alt="whatsapp">
+                    <div>Enviar mensagem para seu Agente Comunitário de Saúde</div>
+                </button>
+            </div>
+            }
+            @if (ruaSelecionada() && ruaSelecionada() == "nenhum") {
+            <div class="action-section">
+                <button class="btn-redirecionar" [routerLink]="['/busca-ruas']" routerLinkActive="active"
+                    [routerLinkActiveOptions]="{ exact: true }">
+                    <img src="/assets/images/localizacao.svg" alt="Meu Endereço">
+                    <div class="txt__menu">Pesquise em Buscar Endereço para encontrar seu Agente de Saúde</div>
+                </button>
+            </div>
+            }
         } @else {
-        <p class="sem-ruas">Nenhum logradouro encontrado para a microárea deste profissional (Micro: {{
-            profissional().micro }}).</p>
-        }
+            <p class="sem-ruas">Nenhum logradouro encontrado para a microárea deste profissional (Micro: {{
+                profissional().micro }}).</p>
+            }
         }
     </div>
 </div>

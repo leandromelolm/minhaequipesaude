@@ -4,11 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { EnderecosService } from '../enderecos/services/enderecos.service';
 import { Profissional } from '../profissionais/models/profissional.model';
 import { Endereco } from '../enderecos/models/endereco.model';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-profissional-detalhes',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterLink, RouterLinkActive],
   templateUrl: './profissional-detalhes.component.html',
   styleUrl: './profissional-detalhes.component.scss'
 })
