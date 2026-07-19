@@ -79,12 +79,20 @@ export class EnderecosService {
     if (!termo.trim()) {
       return listaAtual;
     }
-    const termoLower = termo.toLowerCase();
+    const termoFormatado = this.padronizarTexto(termo);
     return listaAtual.filter(e =>
-      e.logradouro.toLowerCase().includes(termoLower) ||
-      e.bairro.toLowerCase().includes(termoLower) ||
-      e.cidade.toLowerCase().includes(termoLower)
+      this.padronizarTexto(e.logradouro).includes(termoFormatado) ||
+      this.padronizarTexto(e.bairro).includes(termoFormatado) ||
+      this.padronizarTexto(e.cidade).includes(termoFormatado)
     );
+  }
+
+  private padronizarTexto(texto: string): string {
+    if (!texto) return '';
+    return texto
+      .normalize("NFD") // Separa as letras dos acentos (ex: "í" vira "i" + acento)
+      .replace(/[\u0300-\u036f]/g, "") // Remove os acentos
+      .toLowerCase(); // Transforma tudo em minúsculo para evitar erro de Caps Lock
   }
 
   buscarEnderecoPorLogradouroENumero(inputUsuario: string): Observable<Endereco[] | null> {
