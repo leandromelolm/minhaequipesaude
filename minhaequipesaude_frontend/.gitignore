@@ -50,3 +50,4 @@ Thumbs.db
 *_enderecos.component*
 *__app.component.scss
 *.vscode
+*.firebase*
