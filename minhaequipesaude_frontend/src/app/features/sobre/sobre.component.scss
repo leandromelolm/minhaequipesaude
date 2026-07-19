@@ -35,7 +35,7 @@ a:hover {
 .bloco-imagem img {
     width: 100%;
     height: auto;
-    border-radius: 8px;
+    border-radius: 12px;
     object-fit: cover;
 }
 
@@ -43,11 +43,29 @@ a:hover {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding: 1rem;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    max-width: 600px;
+    color: #333333;
+}
+
+.btn-redirecionar {
+    width: 100%;
+    border: none;
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .bloco-texto h2 {
     margin-top: 0;
-    color: white;
+    color: #1f2937;
 }
 
 
