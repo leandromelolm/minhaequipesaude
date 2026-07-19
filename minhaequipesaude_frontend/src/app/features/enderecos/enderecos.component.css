@@ -1,12 +1,31 @@
-.busca-ruas-section {
+.buscar-endereco-section {
   max-width: 900px;
   margin: 0 auto;
   padding: 1rem 2rem;
 }
 
 .search-container {
-  margin-bottom: 3rem;
+  margin: 1.0rem 1.0rem;
   text-align: center;
+}
+
+@media screen and (max-width: 576px) and (orientation: portrait) {
+  .search-container {
+    position: fixed;
+    width: stretch;
+  }
+
+  .ruas-list {
+    padding-top: 8rem;
+  }
+
+  .loading-container {
+    padding: 9rem 1rem !important;
+  }
+
+  .api-error {
+    margin: 9rem 1rem;
+  }
 }
 
 .search-container h3 {
@@ -18,7 +37,7 @@
 
 .search-box {
   position: relative;
-  max-width: 600px;
+  /* max-width: 600px; */
   margin: 0 auto;
   width: 100%;
 }
@@ -40,7 +59,7 @@
 
 .search-input {
   width: 100%;
-  padding: 1rem 1.5rem;
+  padding: 1rem 0.5rem;
   font-size: 1rem;
   border: none;
   border-radius: 25px;
@@ -96,7 +115,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 46px;
+  width: 6rem !important;
   border-radius: 25px;
   font-weight: 600;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
@@ -420,9 +439,15 @@
 }
 
 .icon-warning {
+ display: inline-block;
   width: 48px;
   height: 48px;
-  color: #f6ad55;
+  background-image: url('../../../../../minhaequipesaude_frontend/public/assets/images/icon-warning.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  
+  filter: invert(79%) sepia(48%) saturate(601%) hue-rotate(331deg) brightness(99%) contrast(93%) 
+          drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.3));
 }
 
 .detalhe_endereco {
@@ -533,9 +558,6 @@
   }
 }
 
-/* ==========================================================================
-   9. MEDIA QUERIES (RESPONSIVIDADE)
-   ========================================================================== */
 @media (max-width: 1024px) {
   .results-container {
     grid-template-columns: 1fr;
@@ -548,17 +570,12 @@
 }
 
 @media (max-width: 768px) {
-  .busca-ruas-section {
-    padding: 1rem;
+  .buscar-endereco-section {
+    padding: 0rem;
   }
 
   .search-container h2 {
     font-size: 2rem;
-  }
-
-  .ruas-list,
-  .rua-detalhes {
-    max-height: 400px;
   }
 
   .detalhes-content {

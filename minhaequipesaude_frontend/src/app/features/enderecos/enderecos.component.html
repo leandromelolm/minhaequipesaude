@@ -1,6 +1,5 @@
-<section class="busca-ruas-section">
+<section class="buscar-endereco-section">
   <div class="search-container">
-    <!-- <h3>Buscar Endereço</h3> -->
     <div class="search-box">
       <div class="search-wrapper flex-column-gap">
 
@@ -38,60 +37,79 @@
 
   <div class="results-container">
 
-    <div *ngIf="carregandoApi; else contentTemplate" class="results-loading-wrapper">
-      <ng-container *ngTemplateOutlet="carregando"></ng-container>
-    </div>
-
-    <ng-template #contentTemplate>
-
-      <div *ngIf="buscaApiSemResultado" class="no-results api-error">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="icon-warning">
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
-        </svg>
-        <p>Nenhum endereço exato correspondente foi encontrado para o termo informado.</p>
-        <p class="sub-text">Verifique o nome do endereço e os números digitados.</p>
-      </div>
-
-      @if(!buscaApiSemResultado) {
-      <div *ngIf="enderecos$ | async as listaEnderecos; else carregando" class="ruas-list">
-
-        <div *ngIf="listaEnderecos.length === 0 && !buscaApiSemResultado" class="no-results">
-          <p>Nenhuma rua encontrada. Tente outro termo de busca.</p>
+    @if (carregandoApi) {
+      <div class="results-loading-wrapper">
+        <div class="loading-container">
+          <div class="spinner"></div>
+          <p>Carregando endereço... Por favor, aguarde.</p>
         </div>
+      </div>
+    } @else {
 
-        <div class="rua-item" *ngFor="let endereco of listaEnderecos" (click)="selecionarRua(endereco)"
-          [class.selected]="enderecoSelecionado?.id === endereco.id">
+      @if (buscaApiSemResultado) {
+        <div class="no-results api-error">
+          <i class="icon icon-warning"></i>
+          <p>Nenhum endereço exato correspondente foi encontrado para o termo informado.</p>
+          <p class="sub-text">Verifique o nome do endereço e os números digitados.</p>
+        </div>
+      } @else {
 
-          <div class="rua-header">
-            <h3>{{ endereco.logradouro }}</h3>
-            <span class="bairro-badge">{{ endereco.micro }}</span>
-          </div>
-          <div>
-            <div class="classe-info-logradouro detalhe_endereco">
-              <span class="rua-location">{{ endereco.bairro }}</span>
-              <div *ngIf="endereco.cep" class="rua-location">CEP:{{ endereco.cep }}</div>
-              <p class="rua-location">Equipe {{ endereco.equipe_vinculada }}</p>
+        @if (enderecos$ | async; as listaEnderecos) {
+
+          <div class="ruas-list">
+
+            @if (listaEnderecos.length === 0) {
+            <div class="no-results">
+              <p>Nenhuma rua encontrada. Tente outro termo de busca.</p>
             </div>
-          </div>
-          <div [class]="'classe-micro-' + (endereco?.micro?.split(' ')?.pop() || '')"
-            class="d_flex detalhe_endereco align-item-center">
-            <div class="div__acs_txt">Agente de Saúde:</div>
-            <div class="div__acs">{{ endereco.acs }}</div>
-          </div>
-          <div *ngIf="endereco.aviso" class="aviso-alerta detalhe_endereco">
-            <strong>Atenção: </strong>{{ endereco.aviso }}
-          </div>
-        </div>
-      </div>
-      }
-    </ng-template>
+            }
 
-    <ng-template #carregando>
-      <div class="loading-container">
-        <div class="spinner"></div>
-        <p>Carregando endereço... Por favor, aguarde.</p>
-      </div>
-    </ng-template>
+            @for (endereco of listaEnderecos; track endereco.id) {
+            <div class="rua-item" (click)="selecionarRua(endereco)"
+              [class.selected]="enderecoSelecionado?.id === endereco.id">
+
+              <div class="rua-header">
+                <h3>{{ endereco.logradouro }}</h3>
+                <span class="bairro-badge">{{ endereco.micro }}</span>
+              </div>
+
+              <div>
+                <div class="classe-info-logradouro detalhe_endereco">
+                  <span class="rua-location">{{ endereco.bairro }}</span>
+                  @if (endereco.cep) {
+                  <div class="rua-location">CEP:{{ endereco.cep }}</div>
+                  }
+                  <p class="rua-location">Equipe {{ endereco.equipe_vinculada }}</p>
+                </div>
+              </div>
+
+              <div [class]="'classe-micro-' + (endereco?.micro?.split(' ')?.pop() || '')"
+                class="d_flex detalhe_endereco align-item-center">
+                <div class="div__acs_txt">Agente de Saúde:</div>
+                <div class="div__acs">{{ endereco.acs }}</div>
+              </div>
+
+              @if (endereco.aviso) {
+              <div class="aviso-alerta detalhe_endereco">
+                <strong>Atenção: </strong>{{ endereco.aviso }}
+              </div>
+              }
+
+            </div>
+            }
+
+          </div>
+
+        } @else {
+          <div class="loading-container">
+            <div class="spinner"></div>
+            <p>Carregando endereço... Por favor, aguarde.</p>
+          </div>
+        }
+
+      }
+
+    }
 
   </div>
 
