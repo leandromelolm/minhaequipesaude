@@ -11,19 +11,6 @@
   flex-direction: column;
 }
 
-.footer {
-  background: rgba(0, 0, 0, 0.2);
-  padding: 2rem;
-  text-align: center;
-  color: white;
-  margin-top: auto;
-}
-
-.footer-content p {
-  margin: 0.5rem 0;
-  font-size: 1rem;
-}
-
 /* Adiciona o espaço no final da página apenas quando o menu estiver visível */
 @media screen and (max-width: 576px) and (orientation: portrait) {
 
