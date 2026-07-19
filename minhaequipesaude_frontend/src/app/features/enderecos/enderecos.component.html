@@ -59,43 +59,43 @@
           <div class="ruas-list">
 
             @if (listaEnderecos.length === 0) {
-            <div class="no-results">
-              <p>Nenhuma rua encontrada. Tente outro termo de busca.</p>
-            </div>
+              <div class="no-results">
+                <p>Nenhuma rua encontrada. Tente outro termo de busca.</p>
+              </div>
             }
 
             @for (endereco of listaEnderecos; track endereco.id) {
-            <div class="rua-item" (click)="selecionarRua(endereco)"
-              [class.selected]="enderecoSelecionado?.id === endereco.id">
+              <div class="rua-item" (click)="selecionarRua(endereco)"
+                [class.selected]="enderecoSelecionado?.id === endereco.id">
 
-              <div class="rua-header">
-                <h3>{{ endereco.logradouro }}</h3>
-                <span class="bairro-badge">{{ endereco.micro }}</span>
-              </div>
-
-              <div>
-                <div class="classe-info-logradouro detalhe_endereco">
-                  <span class="rua-location">{{ endereco.bairro }}</span>
-                  @if (endereco.cep) {
-                  <div class="rua-location">CEP:{{ endereco.cep }}</div>
-                  }
-                  <p class="rua-location">Equipe {{ endereco.equipe_vinculada }}</p>
+                <div class="rua-header">
+                  <h3>{{ endereco.logradouro }}</h3>
+                  <span class="bairro-badge">{{ endereco.micro }}</span>
                 </div>
-              </div>
 
-              <div [class]="'classe-micro-' + (endereco?.micro?.split(' ')?.pop() || '')"
-                class="d_flex detalhe_endereco align-item-center">
-                <div class="div__acs_txt">Agente de Saúde:</div>
-                <div class="div__acs">{{ endereco.acs }}</div>
-              </div>
+                <div>
+                  <div class="classe-info-logradouro detalhe_endereco">
+                    <span class="rua-location">{{ endereco.bairro }}</span>
+                    @if (endereco.cep) {
+                      <div class="rua-location">CEP:{{ endereco.cep }}</div>
+                    }
+                    <p class="rua-location">Equipe {{ endereco.equipe_vinculada }}</p>
+                  </div>
+                </div>
 
-              @if (endereco.aviso) {
-              <div class="aviso-alerta detalhe_endereco">
-                <strong>Atenção: </strong>{{ endereco.aviso }}
-              </div>
-              }
+                <div [class]="'classe-micro-' + (endereco?.micro?.split(' ')?.pop() || '')"
+                  class="d_flex detalhe_endereco align-item-center">
+                  <div class="div__acs_txt">Agente de Saúde:</div>
+                  <div class="div__acs">{{ endereco.acs }}</div>
+                </div>
 
-            </div>
+                @if (endereco.aviso) {
+                  <div class="aviso-alerta detalhe_endereco">
+                    <strong>Atenção: </strong>{{ endereco.aviso }}
+                  </div>
+                }
+
+              </div>
             }
 
           </div>
