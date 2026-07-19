@@ -1,3 +1,4 @@
+/** alterar função para env() */
 function _env() {
   return {
     ENV_SPREADSHEET_ID: '',
@@ -10,7 +11,7 @@ function _env() {
 function doGet(e) {
   let op = e.parameter.action;
   let sheetNumber = e.parameter.sheetnumber;
-  let ss = SpreadsheetApp.open(DriveApp.getFileById(env().ENV_SPREADSHEET_ID));
+  let ss = SpreadsheetApp.openById(env().ENV_SPREADSHEET_ID);
 
   if (op == "read")
     return getBySheetName(ss, sheetNumber);
@@ -191,7 +192,7 @@ ENDERECO
 id	logradouro	numero	cep	bairro	micro	cidade	complemento	observacao	acs	equipe_vinculada	aviso
 
 PROFISSIONAL
-id	nome	funcao	especialidade	registro	descricao	equipe	unidade	url_foto
+id	nome	funcao	especialidade	registro	micro	equipe	unidade	url_foto contato
 
 EQUIPE
 id	nome	ine	apelido	registro	descricao	unidade
