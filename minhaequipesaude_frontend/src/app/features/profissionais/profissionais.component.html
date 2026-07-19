@@ -1,4 +1,4 @@
-<section class="membros-section">
+<section class="membros-section sem-selecao">
   <div class="section-title">
     <h2>Conheça Nossa Equipe</h2>
     <h3>Equipe {{ tituloEquipe() }}</h3>
@@ -28,7 +28,7 @@
         </div>
       </div>
       <div class="team-info">
-        <h3 (click)="abrirComponenteProfissionalDetalhes(true, membro)">{{ membro.nome }}</h3>
+        <h3>{{ membro.nome }}</h3>
         <p class="role">{{ membro.funcao }}</p>
         <p class="specialty">{{ membro.registro }}</p>
         <p class="description">{{ membro.micro }}

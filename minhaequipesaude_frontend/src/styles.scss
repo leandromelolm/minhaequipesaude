@@ -10,3 +10,10 @@ body {
 .d__none {
     display: none;
 }
+
+.sem-selecao {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
