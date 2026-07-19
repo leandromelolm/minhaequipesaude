@@ -101,6 +101,7 @@
   text-align: center;
   transition: background-color 0.3s ease;
   border-bottom: 3px solid transparent;
+  width: max-content;
 }
 
 .nav-menu a:hover {
