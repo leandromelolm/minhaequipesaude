@@ -219,11 +219,11 @@
 
 .rua-item:hover {
   background-color: #f7fafc;
-  transform: translateX(5px);
+  /* transform: translateX(5px); */
 }
 
 .rua-item.selected {
-  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  background: linear-gradient(135deg, #21bc27 0%, #2a864a 100%);
   color: #fff;
 }
 
@@ -241,8 +241,8 @@
 }
 
 .bairro-badge {
-  background: #667eea;
-  color: #fff;
+  background: #f3f4f6;
+  /* color: #fff; */
   padding: 0.25rem 0.75rem;
   border-radius: 20px;
   font-size: 0.875rem;
@@ -484,7 +484,7 @@
 }
 
 .div__acs_txt {
-  font-size: small;
+  font-size: 0.95rem;
 }
 
 .div__acs {
