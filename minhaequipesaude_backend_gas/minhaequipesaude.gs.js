@@ -61,9 +61,21 @@ function limparTexto(texto) {
     .toLowerCase();
 }
 
+function limparEPadronizarTexto(texto) {
+  if (texto === undefined || texto === null) return "";
+
+  return String(texto)
+    .normalize("NFD")                // Separa os acentos das letras
+    .replace(/[\u0300-\u036f]/g, "") // Remove os acentos
+    .replace(/,/g, "")               // Remove as vírgulas
+    .replace(/\s+/g, " ")            // Substitui múltiplos espaços por um único espaço
+    .toLowerCase()                   // Transforma tudo em minúsculo
+    .trim();                         // Remove espaços extras no início e no fim
+}
+
 function searchAddress(ss, logradouroBuscadoBruto, numeroBuscadoBruto) {
-  let logradouroBuscado = limparTexto(logradouroBuscadoBruto);
-  let numeroBuscado = limparTexto(numeroBuscadoBruto);
+  let logradouroBuscado = limparEPadronizarTexto(logradouroBuscadoBruto);
+  let numeroBuscado = limparEPadronizarTexto(numeroBuscadoBruto);
 
   let output = ContentService.createTextOutput().setMimeType(ContentService.MimeType.JSON);
   let response = { success: false, data: [] };
@@ -82,8 +94,8 @@ function searchAddress(ss, logradouroBuscadoBruto, numeroBuscadoBruto) {
   }
 
   let encontrados = todosEnderecos.filter(function (item) {
-    let logradouroPlanilha = limparTexto(item.logradouro);
-    let numeroPlanilha = limparTexto(item.numero);
+    let logradouroPlanilha = limparEPadronizarTexto(item.logradouro);
+    let numeroPlanilha = limparEPadronizarTexto(item.numero);
 
     return logradouroPlanilha.includes(logradouroBuscado) && numeroPlanilha === numeroBuscado;
   });
