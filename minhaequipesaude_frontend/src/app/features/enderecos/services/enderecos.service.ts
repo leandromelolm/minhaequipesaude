@@ -92,7 +92,7 @@ export class EnderecosService {
     return texto
       .normalize("NFD") // Separa as letras dos acentos (ex: "í" vira "i" + acento)
       .replace(/[\u0300-\u036f]/g, "") // Remove os acentos
-      .toLowerCase(); // Transforma tudo em minúsculo para evitar erro de Caps Lock
+      .toLowerCase();
   }
 
   buscarEnderecoPorLogradouroENumero(inputUsuario: string): Observable<Endereco[] | null> {

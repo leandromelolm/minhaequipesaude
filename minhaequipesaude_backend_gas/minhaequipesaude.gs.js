@@ -132,6 +132,11 @@ function readData(sheet, colunasIgnoradas = []) {
         let originalName = originalHeaders[p];
         let cellValue = row[p];
 
+        // Ignora se cabeçalho está vazio ou se começa com '#'
+        if (!originalName || String(originalName).trim() === "" || String(originalName).trim().startsWith("#")) {
+          continue;
+        }
+
         if (ignorarFormatado.includes(originalName)) {
           continue;
         }
@@ -198,15 +203,16 @@ CRIAR PLANILHA
   SH_EQUIPE: '{NOME_DA_FOLHA_3}'
 
 
-COLUNA DAS FOLHAS:
+COLUNA DAS FOLHAS
+  Obs: cabeçalho vazio ou se começa com '#' são ignorados na requisição
+  
+  ENDERECO
+  id	logradouro	numero	cep	bairro	micro	cidade	complemento	observacao	acs	equipe_vinculada	aviso
 
-ENDERECO
-id	logradouro	numero	cep	bairro	micro	cidade	complemento	observacao	acs	equipe_vinculada	aviso
+  PROFISSIONAL
+  id	nome	funcao	especialidade	registro	micro	equipe	unidade	url_foto contato
 
-PROFISSIONAL
-id	nome	funcao	especialidade	registro	micro	equipe	unidade	url_foto contato
-
-EQUIPE
-id	nome	ine	apelido	registro	descricao	unidade
+  EQUIPE
+  id	nome	ine	apelido	registro	descricao	unidade
 
 */
