@@ -3,24 +3,36 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Endereco } from './models/endereco.model';
 import { EnderecosService } from './services/enderecos.service';
+import { ProfissionaisService } from '../profissionais/services/profissionais.service'; // Importar
+import { Profissional } from '../profissionais/models/profissional.model'; // Importar
+import { ProfissionalDetalhesComponent } from '../profissional-detalhes/profissional-detalhes.component'; // Importar
 import { finalize, Observable, of, Subscription } from 'rxjs';
-
 
 @Component({
   selector: 'app-enderecos',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ProfissionalDetalhesComponent // Adicionar nas imports
+  ],
   templateUrl: './enderecos.component.html',
   styleUrl: './enderecos.component.css'
 })
 export class EnderecosComponent implements OnInit {
 
   private platformId = inject(PLATFORM_ID);
+  private enderecoService = inject(EnderecosService);
+  private profissionaisService = inject(ProfissionaisService); // Injectar serviço de profissionais
+
   termoBusca: string = '';
-  numeroBusca: string = ''; // <-- Nova propriedade
+  numeroBusca: string = '';
   enderecoSelecionado: Endereco | null = null;
 
-  private enderecoService = inject(EnderecosService);
+  // Propriedades para controle da exibição dos detalhes do ACS
+  profissionalSelecionado: Profissional | null = null;
+  exibirProfissionalDetalhes: boolean = false;
+
   enderecos$!: Observable<Endereco[]>;
 
   carregandoApi: boolean = false;
@@ -41,6 +53,38 @@ export class EnderecosComponent implements OnInit {
       this.buscaApiSemResultado = false;
       this.enderecos$ = this.enderecoService.getEnderecos();
     }
+  }
+
+  abrirDetalhesAcs(event: MouseEvent, endereco: Endereco): void {
+    // Evita a seleção da rua no card pai ao clicar no botão do ACS
+    event.stopPropagation();
+
+    if (!endereco.acs || !endereco.micro) return;
+
+    this.profissionaisService.getProfissionais().subscribe({
+      next: (profissionais) => {
+        const microEndereco = String(endereco.micro).trim().toLowerCase();
+
+        const acsEncontrado = profissionais.find(p =>
+          p.micro && String(p.micro).trim().toLowerCase() === microEndereco
+        );
+
+        if (acsEncontrado) {
+          this.profissionalSelecionado = acsEncontrado;
+          this.exibirProfissionalDetalhes = true;
+        } else {
+          alert('Não foram encontrados os dados cadastrais completos deste Agente de Saúde.');
+        }
+      },
+      error: (err) => {
+        console.error('Erro ao buscar dados do Agente de Saúde:', err);
+      }
+    });
+  }
+
+  fecharDetalhesAcs(): void {
+    this.exibirProfissionalDetalhes = false;
+    this.profissionalSelecionado = null;
   }
 
   buscar(): void {
@@ -72,7 +116,6 @@ export class EnderecosComponent implements OnInit {
   buscarEnderecoComNumero(logradouro: string): void {
     if (!logradouro || !logradouro.trim() || this.carregandoApi) return;
 
-    // Limpa timeout
     if (this.timeoutBuscaId) {
       clearTimeout(this.timeoutBuscaId);
     }
@@ -81,11 +124,10 @@ export class EnderecosComponent implements OnInit {
     this.buscaApiSemResultado = false;
     this.enderecoSelecionado = null;
 
-    // timeout de segurança para destravar após 15 segundos
     this.timeoutBuscaId = setTimeout(() => {
       if (this.carregandoApi) {
         this.carregandoApi = false;
-        console.warn("A requisição excedeu o tempo limite de 15 segundos. Botão liberado.");
+        console.warn("A requisição excedeu o tempo limite de 15 segundos.");
       }
     }, 15000);
 
@@ -121,6 +163,7 @@ export class EnderecosComponent implements OnInit {
     this.numeroBusca = '';
     this.enderecoSelecionado = null;
     this.buscaApiSemResultado = false;
+    this.fecharDetalhesAcs();
     this.recargarListaCompleta();
   }
 

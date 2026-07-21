@@ -628,3 +628,48 @@
     padding: 0 12px;
   }
 }
+
+/* Feedback visual ao passar o mouse sobre o bloco do Agente de Saúde */
+.acs-clickable {
+  cursor: pointer;
+  transition: filter 0.2s ease, transform 0.2s ease;
+}
+
+.acs-clickable:hover {
+  filter: brightness(0.95);
+  transform: scale(1.01);
+}
+
+/* Estilos do botão Voltar e exibição dos detalhes do Profissional */
+.container-detalhes-acs {
+  margin: 2rem 1rem;
+}
+
+.div__voltar {
+  text-align: center;
+}
+
+.btn-voltar {
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: none;
+  margin-bottom: 1rem;
+}
+
+.team-info-back {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.team-info-back h3 {
+  color: #ffffff;
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.team-info-back img {
+  width: 24px;
+  height: 24px;
+}
