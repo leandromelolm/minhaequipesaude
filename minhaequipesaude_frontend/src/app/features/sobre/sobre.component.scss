@@ -53,6 +53,8 @@ a:hover {
 
 .btn-redirecionar {
     width: 100%;
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    color: #ffffff;
     border: none;
     padding: 1rem;
     font-size: 1rem;
@@ -61,6 +63,15 @@ a:hover {
     cursor: pointer;
     box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-redirecionar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(37, 99, 235, 0.3);
+}
+
+.btn-redirecionar:active {
+    transform: translateY(0);
 }
 
 .bloco-texto h2 {
