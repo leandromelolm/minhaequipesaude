@@ -14,7 +14,7 @@ import { finalize, Observable, of, Subscription } from 'rxjs';
   imports: [
     CommonModule,
     FormsModule,
-    ProfissionalDetalhesComponent // Adicionar nas imports
+    ProfissionalDetalhesComponent
   ],
   templateUrl: './enderecos.component.html',
   styleUrl: './enderecos.component.css'
