@@ -34,6 +34,7 @@ export class EnderecosComponent implements OnInit {
   exibirProfissionalDetalhes: boolean = false;
 
   enderecos$!: Observable<Endereco[]>;
+  logradouroSelecionadoAcs: string = '';
 
   carregandoApi: boolean = false;
   buscaApiSemResultado: boolean = false;
@@ -60,6 +61,8 @@ export class EnderecosComponent implements OnInit {
     event.stopPropagation();
 
     if (!endereco.acs || !endereco.micro) return;
+
+    this.logradouroSelecionadoAcs = endereco.logradouro;
 
     this.profissionaisService.getProfissionais().subscribe({
       next: (profissionais) => {
@@ -110,7 +113,9 @@ export class EnderecosComponent implements OnInit {
   }
 
   fecharDetalhes(): void {
-    this.enderecoSelecionado = null;
+    this.exibirProfissionalDetalhes = false;
+    this.profissionalSelecionado = null;
+    this.logradouroSelecionadoAcs = '';
   }
 
   buscarEnderecoComNumero(logradouro: string): void {

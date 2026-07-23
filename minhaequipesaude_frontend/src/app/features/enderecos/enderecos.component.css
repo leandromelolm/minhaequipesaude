@@ -225,7 +225,7 @@
 }
 
 .rua-item {
-  padding: 1.5rem;
+  padding: 1.0rem;
   border-bottom: 1px solid #e2e8f0;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.3s ease;
@@ -242,8 +242,10 @@
 }
 
 .rua-item.selected {
-  background: linear-gradient(135deg, #21bc27 0%, #2a864a 100%);
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
   color: #fff;
+  margin: 0px 5px;
+  border-radius: 18px;
 }
 
 .rua-header {

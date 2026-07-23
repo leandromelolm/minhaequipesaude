@@ -17,12 +17,16 @@ export class ProfissionalDetalhesComponent implements OnInit {
   private enderecosService = inject(EnderecosService);
 
   profissional = input.required<Profissional>();
+  logradouroInicial = input<string>('');
 
   ruasFiltradas = signal<Endereco[]>([]);
   carregandoRuas = signal<boolean>(false);
   ruaSelecionada = signal<string>('');
 
   ngOnInit(): void {
+    if (this.logradouroInicial()) {
+      this.ruaSelecionada.set(this.logradouroInicial());
+    }
     this.obterERunirEnderecos();
   }
 
