@@ -22,7 +22,7 @@
             </p>
             <button class="btn-redirecionar" [routerLink]="['/profissionais/4']" routerLinkActive="active"
                 [routerLinkActiveOptions]="{ exact: true }">
-                <h3>Clique aqui para conhecer a equipe 4</h3>
+                <h3>Conheça os membros da equipe 4</h3>
             </button>
         </div>
 
@@ -30,6 +30,7 @@
 
 </div>
 
-<app-float-button (buttonClick)="redirecionarFaleComSuaEquipe()">
-    <span>Fale com sua equipe</span>
+<app-float-button (buttonClick)="redirecionarFaleComSuaEquipe()" [bottom]="112">
+    <span>Fale com Nossa Equipe</span>
+    <img class="ico_ws" src="/assets/images/icons-whatsapp.svg" alt="whatsapp">
 </app-float-button>

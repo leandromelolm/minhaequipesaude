@@ -53,8 +53,8 @@ a:hover {
 
 .btn-redirecionar {
     width: 100%;
-    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-    color: #ffffff;
+    // background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    // color: #ffffff;
     border: none;
     padding: 1rem;
     font-size: 1rem;
@@ -96,4 +96,10 @@ a:hover {
     .bloco-texto {
         flex: 1;
     }
+}
+
+.ico_ws {
+    height: 32px;
+    vertical-align: sub;
+    padding-left: 3px;
 }
